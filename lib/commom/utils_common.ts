@@ -46,5 +46,5 @@ export function init(arg: any, dirPath: string, filePath: string) {
    console.log(JSON.stringify(globalConfig.spec) + "\n");
 
    reporter.setLogger();
-   globalConfig.set_driver(arg.browser);
+   globalConfig.set_driver(arg.browser, arg.parallelRun);
 }
