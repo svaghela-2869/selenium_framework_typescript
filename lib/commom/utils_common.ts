@@ -24,8 +24,7 @@ export function quit_driver() {
 }
 
 export function init(arg: any, dirPath: string, filePath: string) {
-   console.log("\ncmdarg" + JSON.stringify(arg) + "\n");
-   reporter.setLogger();
+   console.log("\n" + JSON.stringify(arg) + "\n");
 
    globalConfig.spec["name"] = filePath.replace(dirPath + "/", "");
 
@@ -44,5 +43,8 @@ export function init(arg: any, dirPath: string, filePath: string) {
       fs.mkdirSync(globalConfig.spec.resultFolder + "/downloads", { recursive: true });
    }
 
+   console.log(JSON.stringify(globalConfig.spec) + "\n");
+
+   reporter.setLogger();
    globalConfig.set_driver(arg.browser);
 }

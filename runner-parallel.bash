@@ -10,7 +10,7 @@ ADDR=( ${value} )
 
 resultFolder=$(date +D%Y_%m_%dT%H_%M_%S)
 
-baseCommand="npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/$resultFolder,reportFilename="selenium-[status]-report",reportPageTitle="Mochawesome",embeddedScreenshots=true,charts=true,html=true,json=true,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=true,ignoreVideos=true,showPending=false,autoOpen=true' --spec "
+baseCommand="npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/$resultFolder,reportFilename="selenium-[status]-report",reportPageTitle="Mochawesome",embeddedScreenshots=true,charts=true,html=true,json=true,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=false,autoOpen=true' --spec "
 runnerCommand=""
 
 current=0
@@ -32,6 +32,8 @@ fi
 sleep 1
 newResultFolder=$(date +D%Y_%m_%dT%H_%M_%S)
 runnerCommand="${runnerCommand//$resultFolder/$newResultFolder}"
+eval "mkdir -p results/$newResultFolder"
+runnerCommand="${runnerCommand//$spec/$spec 2>&1 | tee 'results/$newResultFolder/selenium-terminal-log.txt'}"
 done
 
 echo -e "\n${GREEN}Total spec files / folders found : $current${NC}"
@@ -53,5 +55,5 @@ else
 fi
 
 eval $final
-
+clear
 exit
