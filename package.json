@@ -4,7 +4,8 @@
    "description": "Selenium framework with typescript to automate web.",
    "main": "index.js",
    "scripts": {
-      "serial": "bash runner-serial.bash"
+      "serial": "bash runner-serial.bash",
+      "parallel": "bash runner-parallel.bash"
    },
    "keywords": [],
    "author": "",

@@ -17,7 +17,7 @@ current=0
 length=${#ADDR[@]}
 
 clear
-echo -e "${GREEN}Below spec files / folders will be run serially.\n${NC}"
+echo -e "${GREEN}Below spec files / folders will be run parallelly.\n${NC}"
 
 for spec in "${ADDR[@]}";
 do
@@ -27,7 +27,7 @@ if [[ "$current" -eq "$length" ]]
 then
    runnerCommand=$runnerCommand$baseCommand$spec
 else
-   runnerCommand="$runnerCommand$baseCommand$spec && sleep 1 && "
+   runnerCommand="$runnerCommand$baseCommand$spec & sleep 1 && "
 fi
 sleep 1
 newResultFolder=$(date +D%Y_%m_%dT%H_%M_%S)
