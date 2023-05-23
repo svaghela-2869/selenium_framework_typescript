@@ -12,7 +12,7 @@
 
       /* Language and Environment */
       "target": "es2016",
-      // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+      "lib": ["dom", "es6"],
       // "jsx": "preserve",                                /* Specify what JSX code is generated. */
       // "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
       // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
@@ -27,12 +27,12 @@
       /* Modules */
       "module": "commonjs",
       // "rootDir": "./",                                  /* Specify the root folder within your source files. */
-      // "moduleResolution": "node",
-      // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
+      "moduleResolution": "node",
+      "baseUrl": "./",
       // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
       // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
       // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
-      "types": ["node", "mocha"],
+      "types": ["mocha", "node"],
       // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
       // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
       // "allowImportingTsExtensions": true,               /* Allow imports to include TypeScript file extensions. Requires '--moduleResolution bundler' and either '--noEmit' or '--emitDeclarationOnly' to be set. */
@@ -83,7 +83,7 @@
 
       /* Type Checking */
       "strict": true,
-      // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+      "noImplicitAny": false,
       // "strictNullChecks": true,                         /* When type checking, take into account 'null' and 'undefined'. */
       // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
       // "strictBindCallApply": true,                      /* Check that the arguments for 'bind', 'call', and 'apply' methods match the original function. */
@@ -92,7 +92,7 @@
       // "useUnknownInCatchVariables": true,               /* Default catch clause variables as 'unknown' instead of 'any'. */
       // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
       "noUnusedLocals": true,
-      // "noUnusedParameters": true,
+      "noUnusedParameters": true,
       // "exactOptionalPropertyTypes": true,               /* Interpret optional property types as written, rather than adding 'undefined'. */
       "noImplicitReturns": true,
       // "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
@@ -104,6 +104,8 @@
 
       /* Completeness */
       // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-      "skipLibCheck": true /* Skip type checking all .d.ts files. */
-   }
+      "skipLibCheck": true
+   },
+   "include": ["**/*.ts"],
+   "exclude": ["**/node_modules/**"]
 }
