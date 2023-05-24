@@ -20,3 +20,15 @@ export function set_driver(browser: string, parallelRun: string) {
       }
    }
 }
+
+export function close_driver() {
+   const waitTill = new Date(new Date().getTime() + 2000);
+   while (waitTill > new Date()) {}
+   driver.close();
+}
+
+export function quit_driver() {
+   const waitTill = new Date(new Date().getTime() + 5000);
+   while (waitTill > new Date()) {}
+   driver.quit();
+}

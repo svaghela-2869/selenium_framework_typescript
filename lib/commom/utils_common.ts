@@ -11,18 +11,6 @@ export function getRandomNumber(minimumNumber: number, maximumNumber: number): n
    return Math.floor(Math.random() * (maximumNumber - minimumNumber + 1) + minimumNumber);
 }
 
-export function close_driver() {
-   const waitTill = new Date(new Date().getTime() + 2000);
-   while (waitTill > new Date()) {}
-   globalConfig.driver.close();
-}
-
-export function quit_driver() {
-   const waitTill = new Date(new Date().getTime() + 5000);
-   while (waitTill > new Date()) {}
-   globalConfig.driver.quit();
-}
-
 export function init(arg: any, dirPath: string, filePath: string) {
    console.log("\n" + JSON.stringify(arg) + "\n");
 
@@ -41,6 +29,10 @@ export function init(arg: any, dirPath: string, filePath: string) {
 
    if (!fs.existsSync(globalConfig.spec.resultFolder + "/downloads")) {
       fs.mkdirSync(globalConfig.spec.resultFolder + "/downloads", { recursive: true });
+   }
+
+   if (!fs.existsSync(globalConfig.spec.resultFolder + "/recordings")) {
+      fs.mkdirSync(globalConfig.spec.resultFolder + "/recordings", { recursive: true });
    }
 
    console.log(JSON.stringify(globalConfig.spec) + "\n");
