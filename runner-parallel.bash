@@ -54,7 +54,6 @@ else
    echo -e "\n${GREEN}Running in $browser.${NC}"
 fi
 
-eval $final
-sleep 3
-clear
+eval $final && sleep 3 && clear
+
 exit

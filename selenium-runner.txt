@@ -1,3 +1,1 @@
-src/specs/random_search/random_search_1.spec.ts
-src/specs/random_search/random_search_2.spec.ts
-src/specs/random_search/random_search_3.spec.ts
+src/specs/random_search/**/*.spec.ts

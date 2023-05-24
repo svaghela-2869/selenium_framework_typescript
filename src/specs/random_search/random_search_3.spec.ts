@@ -5,6 +5,7 @@ const yargs = require("yargs").argv;
 import * as reporter from "../../../lib/commom/reporter";
 import * as utils_common from "../../../lib/commom/utils_common";
 import * as uihelper from "../../../lib/commom/uihelper";
+import * as globalConfig from "../../../lib/commom/config";
 import { Random } from "random-test-values";
 
 describe(__filename.split("selenium_framework_typescript/")[1], function () {
@@ -31,6 +32,6 @@ describe(__filename.split("selenium_framework_typescript/")[1], function () {
    });
 
    after(async function () {
-      utils_common.quit_driver();
+      globalConfig.quit_driver();
    });
 });

@@ -5,18 +5,20 @@ export let spec: any = {};
 
 export function set_driver(browser: string, parallelRun: string) {
    if (parallelRun == "true") {
-      if (browser == "chrome" || browser == "firefox") {
+      let supportedBrowsers = ["chrome", "firefox"];
+      if (supportedBrowsers.includes(browser)) {
          driver = new Builder().forBrowser(browser).build();
          driver.manage().window().maximize();
       } else {
-         throw new Error("Please select any of the supported browser ( chrome, firefox ).");
+         throw new Error("Please select any of the supported browser : " + supportedBrowsers.toString());
       }
    } else {
-      if (browser == "chrome" || browser == "firefox" || browser == "safari") {
+      let supportedBrowsers = ["chrome", "firefox", "safari"];
+      if (supportedBrowsers.includes(browser)) {
          driver = new Builder().forBrowser(browser).build();
          driver.manage().window().maximize();
       } else {
-         throw new Error("Please select any of the supported browser ( chrome, firefox, safari ).");
+         throw new Error("Please select any of the supported browser : " + supportedBrowsers.toString());
       }
    }
 }
