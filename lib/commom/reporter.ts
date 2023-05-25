@@ -4,6 +4,7 @@ const addContext = require("mochawesome/addContext");
 import * as utils_common from "./utils_common";
 import * as globalConfig from "./config";
 import { writeFileSync } from "fs";
+import { assert } from "chai";
 
 const logger = getLogger();
 export let contextMessages: any[] = [];
@@ -53,10 +54,10 @@ export async function pass(value: string, screenShot?: boolean) {
 }
 
 export async function fail(value: string, screenShot?: boolean) {
-   logger.info(value);
+   logger.fatal(value);
    let contMsg: any = {};
 
-   contMsg.txt = "[FAILED] : " + value;
+   contMsg.txt = "[FAIL] : " + value;
    if (screenShot) {
       let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
       await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
@@ -65,7 +66,7 @@ export async function fail(value: string, screenShot?: boolean) {
 
    contextMessages.push(contMsg);
 
-   throw new Error("Failed : " + value);
+   assert.fail(value);
 }
 
 export function addToContext(testContext: Mocha.Context) {

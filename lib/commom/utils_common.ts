@@ -40,3 +40,8 @@ export function init(arg: any, dirPath: string, filePath: string) {
    reporter.setLogger();
    globalConfig.set_driver(arg.browser, arg.parallelRun);
 }
+
+export async function sleep(seconds: number) {
+   const waitTill = new Date(new Date().getTime() + Number(seconds * 1000));
+   while (waitTill > new Date()) {}
+}

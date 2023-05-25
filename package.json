@@ -4,8 +4,8 @@
    "description": "Selenium framework with typescript to automate web.",
    "main": "index.js",
    "scripts": {
-      "serial": "bash runner-serial.bash",
-      "parallel": "bash runner-parallel.bash"
+      "serial": "ts-node 'selenium-runnrer-serial.ts'",
+      "parallel": "ts-node 'selenium-runnrer-parallel.ts'"
    },
    "keywords": [],
    "author": "",
