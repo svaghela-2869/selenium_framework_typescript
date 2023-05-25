@@ -25,9 +25,9 @@ current=$((current + 1))
 echo $spec
 if [[ "$current" -eq "$length" ]]
 then
-   runnerCommand=$runnerCommand$baseCommand$spec
+   runnerCommand="${runnerCommand}${baseCommand}${spec}"
 else
-   runnerCommand="$runnerCommand$baseCommand$spec & sleep 1 && "
+   runnerCommand="${runnerCommand}${baseCommand}${spec} & sleep 1 && "
 fi
 sleep 1
 newResultFolder=$(date +D%Y_%m_%dT%H_%M_%S)

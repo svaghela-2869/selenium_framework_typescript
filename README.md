@@ -18,4 +18,4 @@ npm run parallel
 
 ### Note
 
-1. If you want to run multiple spec files, then give all spec paths in 'selenium-runner.txt' file, each in new line.
+1. If you want to run multiple spec files, then give all spec paths in 'selenium-runner.txt' file, each in new line. ( you can also give folder path which contains spec files, example : please refer 'selenium-runner.txt' )
