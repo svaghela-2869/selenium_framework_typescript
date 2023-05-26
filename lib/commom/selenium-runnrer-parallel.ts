@@ -32,7 +32,7 @@ function run_spec() {
          if (!fs.existsSync(final_result_folder)) {
             fs.mkdirSync(final_result_folder, { recursive: true });
          }
-         spec_array_with_final_cmd.push(baseCommand + " 2>&1 | tee '" + final_result_folder + "/selenium-log.txt'");
+         spec_array_with_final_cmd.push(baseCommand + " >> '" + final_result_folder + "/selenium-log.txt'");
       } else {
          console.error("\nPlease check selenium-runner.txt for error...");
          return;
