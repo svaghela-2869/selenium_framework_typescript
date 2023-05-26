@@ -10,7 +10,7 @@ export function set_driver(browser: string, parallelRun: string) {
          driver = new Builder().forBrowser(browser).build();
          driver.manage().window().maximize();
       } else {
-         throw new Error("Please select any of the supported browser : " + supportedBrowsers.toString());
+         throw new Error("Please select any of the mentioned supported browsers for parallel runs, which are : " + supportedBrowsers.toString());
       }
    } else {
       let supportedBrowsers = ["chrome", "firefox", "safari"];
@@ -18,7 +18,7 @@ export function set_driver(browser: string, parallelRun: string) {
          driver = new Builder().forBrowser(browser).build();
          driver.manage().window().maximize();
       } else {
-         throw new Error("Please select any of the supported browser : " + supportedBrowsers.toString());
+         throw new Error("Please select any of the mentioned supported browsers, which are : " + supportedBrowsers.toString());
       }
    }
 }

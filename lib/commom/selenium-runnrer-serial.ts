@@ -1,11 +1,12 @@
 import * as fs from "fs";
-import { getTimeStamp, sleep } from "./lib/commom/utils_common";
+import { getTimeStamp, sleep } from "./utils_common";
 import * as os from "os";
+import * as path from "path";
 
 const cmd = require("node-cmd");
 
 function run_spec() {
-   const sel_runnner = fs.readFileSync("./selenium-runner.txt", "utf-8");
+   const sel_runnner = fs.readFileSync(path.resolve(__filename, "../../../selenium-runner.txt"), "utf-8");
    const spec_array = sel_runnner.split("\n");
    const spec_array_with_result_folder: string[] = [];
    const spec_array_with_final_cmd: string[] = [];
@@ -26,11 +27,11 @@ function run_spec() {
          let baseCommand = "npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/TEMP_RESULT_FOLDER_TEMP,reportFilename='selenium-report',reportPageTitle='Mochawesome',embeddedScreenshots=true,charts=true,html=true,json=true,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=false,autoOpen=false' --spec ";
          baseCommand = baseCommand.replace("--browser chrome", "--browser " + spec_array_with_result_folder[i].split(" => ")[0]);
          baseCommand = baseCommand + spec_array_with_result_folder[i].split(" => ")[1];
-         baseCommand = baseCommand.replace("TEMP_RESULT_FOLDER_TEMP", spec_array_with_result_folder[i].split(" => ")[2]);
-         if (!fs.existsSync("results/" + spec_array_with_result_folder[i].split(" => ")[2])) {
-            fs.mkdirSync("results/" + spec_array_with_result_folder[i].split(" => ")[2], { recursive: true });
+         let final_result_folder = "results/" + spec_array_with_result_folder[i].split(" => ")[2];
+         if (!fs.existsSync(final_result_folder)) {
+            fs.mkdirSync(final_result_folder, { recursive: true });
          }
-         spec_array_with_final_cmd.push(baseCommand);
+         spec_array_with_final_cmd.push(baseCommand + " 2>&1 | tee '" + final_result_folder + "/selenium-log.txt'");
       } else {
          console.error("\nPlease check selenium-runner.txt for error...");
          return;
@@ -49,20 +50,21 @@ function run_spec() {
 
    // console.log(spec_array_with_final_cmd);
 
-   console.log("\nRunning specs...");
-
    cmd.run(final_cmd);
 
-   console.log("\nReport will be as below when run complete...\n");
+   console.log("\nReport folder will be as below...\n");
 
    for (let i = 0; i < spec_array_with_result_folder.length; i++) {
-      let result_path = String("Report : " + (i + 1) + " => " + __dirname + "/results/" + spec_array_with_result_folder[i].split(" => ")[2] + "/selenium-report.html");
+      let report_folder_path = path.resolve(__dirname, "../../results/" + spec_array_with_result_folder[i].split(" => ")[2]);
+      let result_path = String("Spec " + (i + 1) + " Report Folder => " + report_folder_path);
       let system = os.type().toLowerCase();
       if (system.startsWith("win")) {
          result_path = result_path.replaceAll("/", "\\\\");
       }
       console.log(result_path);
    }
+
+   console.log("\nRunning specs...");
 
    return;
 }
