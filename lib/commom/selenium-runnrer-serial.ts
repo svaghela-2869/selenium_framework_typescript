@@ -27,6 +27,7 @@ function run_spec() {
          let baseCommand = "npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/TEMP_RESULT_FOLDER_TEMP,reportFilename='selenium-report',reportPageTitle='Mochawesome',embeddedScreenshots=true,charts=true,html=true,json=true,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=false,autoOpen=false' --spec ";
          baseCommand = baseCommand.replace("--browser chrome", "--browser " + spec_array_with_result_folder[i].split(" => ")[0]);
          baseCommand = baseCommand + spec_array_with_result_folder[i].split(" => ")[1];
+         baseCommand = baseCommand.replace("TEMP_RESULT_FOLDER_TEMP", spec_array_with_result_folder[i].split(" => ")[2]);
          let final_result_folder = "results/" + spec_array_with_result_folder[i].split(" => ")[2];
          if (!fs.existsSync(final_result_folder)) {
             fs.mkdirSync(final_result_folder, { recursive: true });
