@@ -3,24 +3,9 @@ import { WebDriver, Builder } from "selenium-webdriver";
 export let driver: WebDriver;
 export let spec: any = {};
 
-export function set_driver(browser: string, parallelRun: string) {
-   if (parallelRun == "true") {
-      let supportedBrowsers = ["chrome", "firefox"];
-      if (supportedBrowsers.includes(browser)) {
-         driver = new Builder().forBrowser(browser).build();
-         driver.manage().window().maximize();
-      } else {
-         throw new Error("Please select any of the mentioned supported browsers for parallel runs, which are : " + supportedBrowsers.toString());
-      }
-   } else {
-      let supportedBrowsers = ["chrome", "firefox", "safari"];
-      if (supportedBrowsers.includes(browser)) {
-         driver = new Builder().forBrowser(browser).build();
-         driver.manage().window().maximize();
-      } else {
-         throw new Error("Please select any of the mentioned supported browsers, which are : " + supportedBrowsers.toString());
-      }
-   }
+export function set_driver(browser: string) {
+   driver = new Builder().forBrowser(browser).build();
+   driver.manage().window().maximize();
 }
 
 export function close_driver() {

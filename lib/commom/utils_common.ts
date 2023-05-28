@@ -38,7 +38,7 @@ export function init(arg: any, dirPath: string, filePath: string) {
    console.log(JSON.stringify(globalConfig.spec) + "\n");
 
    reporter.setLogger();
-   globalConfig.set_driver(arg.browser, arg.parallelRun);
+   globalConfig.set_driver(arg.browser);
 }
 
 export async function sleep(seconds: number) {

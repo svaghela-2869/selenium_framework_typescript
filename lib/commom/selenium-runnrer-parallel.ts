@@ -6,6 +6,7 @@ import * as path from "path";
 const cmd = require("node-cmd");
 
 function run_spec() {
+   let system = os.type().toLowerCase();
    const sel_runnner = fs.readFileSync(path.resolve(__filename, "../../../selenium-runner.txt"), "utf-8");
    const spec_array = sel_runnner.split("\n");
    const spec_array_with_result_folder: string[] = [];
@@ -15,20 +16,32 @@ function run_spec() {
 
    for (let i = 0; i < spec_array.length; i++) {
       console.log(spec_array[i]);
-      let spec_run_data = spec_array[i] + " => " + getTimeStamp();
+      let supportedBrowsers = ["chrome", "firefox"];
+      if (!supportedBrowsers.includes(spec_array[i].split(" => ")[0])) {
+         console.log("\nPlease select parallel runs supported browsers : " + supportedBrowsers.toString());
+         return;
+      }
+      let split = "/";
+      if (system.startsWith("win")) {
+         split = "\\\\";
+      }
+      let name_index = spec_array[i].split(" => ")[1].split(split).length;
+      let spec_run_data = spec_array[i] + " => " + getTimeStamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 1];
       spec_array_with_result_folder.push(spec_run_data);
       sleep(1.3);
    }
 
+   // console.log(spec_array_with_result_folder);
+
    console.log("\nTotal spec files / folders found : " + spec_array_with_result_folder.length);
 
    for (let i = 0; i < spec_array_with_result_folder.length; i++) {
-      if (spec_array_with_result_folder[i].split(" => ").length == 3) {
-         let baseCommand = "npx mocha --require 'ts-node/register' --parallelRun true --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/TEMP_RESULT_FOLDER_TEMP,reportFilename='selenium-report',reportPageTitle='Mochawesome',embeddedScreenshots=true,charts=true,html=true,json=true,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=false,autoOpen=false' --spec ";
+      if (spec_array_with_result_folder[i].split(" => ").length == 4) {
+         let baseCommand = "npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/_parallel/TEMP_RESULT_FOLDER_TEMP,reportFilename='selenium-report',reportPageTitle='Mochawesome',embeddedScreenshots=true,charts=true,html=true,json=true,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=false,autoOpen=false' --spec ";
          baseCommand = baseCommand.replace("--browser chrome", "--browser " + spec_array_with_result_folder[i].split(" => ")[0]);
          baseCommand = baseCommand + spec_array_with_result_folder[i].split(" => ")[1];
-         baseCommand = baseCommand.replace("TEMP_RESULT_FOLDER_TEMP", spec_array_with_result_folder[i].split(" => ")[2]);
-         let final_result_folder = "results/" + spec_array_with_result_folder[i].split(" => ")[2];
+         baseCommand = baseCommand.replace("TEMP_RESULT_FOLDER_TEMP", spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2]);
+         let final_result_folder = "results/_parallel/" + spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2];
          if (!fs.existsSync(final_result_folder)) {
             fs.mkdirSync(final_result_folder, { recursive: true });
          }
@@ -44,7 +57,7 @@ function run_spec() {
    let final_cmd = "";
    for (let i = 0; i < spec_array_with_final_cmd.length; i++) {
       if (i != spec_array_with_final_cmd.length - 1) {
-         spec_array_with_final_cmd[i] = spec_array_with_final_cmd[i] + " & sleep 1 && ";
+         spec_array_with_final_cmd[i] = spec_array_with_final_cmd[i] + " & ";
       }
       final_cmd = final_cmd + spec_array_with_final_cmd[i];
    }
@@ -56,9 +69,8 @@ function run_spec() {
    console.log("\nReport folder will be as below...\n");
 
    for (let i = 0; i < spec_array_with_result_folder.length; i++) {
-      let report_folder_path = path.resolve(__dirname, "../../results/" + spec_array_with_result_folder[i].split(" => ")[2]);
-      let result_path = String("Spec " + (i + 1) + " Report Folder => " + report_folder_path);
-      let system = os.type().toLowerCase();
+      let report_folder_path = path.resolve(__dirname, "../../results/_parallel/" + spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2]);
+      let result_path = String("Spec " + (i + 1) + " Report => " + report_folder_path + "/selenium-report.html");
       if (system.startsWith("win")) {
          result_path = result_path.replaceAll("/", "\\\\");
       }
