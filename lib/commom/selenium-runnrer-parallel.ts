@@ -26,7 +26,12 @@ function run_spec() {
          split = "\\\\";
       }
       let name_index = spec_array[i].split(" => ")[1].split(split).length;
-      let spec_run_data = spec_array[i] + " => " + getTimeStamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 1];
+      let spec_run_data;
+      if (spec_array[i].includes("**")) {
+         spec_run_data = spec_array[i] + " => " + getTimeStamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 3];
+      } else {
+         spec_run_data = spec_array[i] + " => " + getTimeStamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 1];
+      }
       spec_array_with_result_folder.push(spec_run_data);
       sleep(1.3);
    }
