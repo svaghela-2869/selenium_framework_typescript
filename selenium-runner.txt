@@ -1,4 +1,4 @@
-chrome => src/specs/random_search/random_search_1.spec.ts
-firefox => src/specs/random_search/random_search_2.spec.ts
-safari => src/specs/random_search/random_search_3.spec.ts
-chrome => src/specs/random_search/**/*.spec.ts
+chrome => tests/random_search/random_search_1.spec.ts
+firefox => tests/random_search/random_search_2.spec.ts
+safari => tests/random_search/random_search_3.spec.ts
+chrome => tests/random_search/**/*.spec.ts
