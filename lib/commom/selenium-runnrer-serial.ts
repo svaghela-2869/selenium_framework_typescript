@@ -12,7 +12,7 @@ function run_spec() {
    const spec_array_with_result_folder: string[] = [];
    const spec_array_with_final_cmd: string[] = [];
 
-   console.log("Below spec files / folders will be run serially.\n");
+   console.log("\nBelow spec files / folders will be run serially.\n");
 
    for (let i = 0; i < spec_array.length; i++) {
       console.log(spec_array[i]);
