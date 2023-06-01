@@ -16,7 +16,7 @@ function run_spec() {
 
    for (let i = 0; i < spec_array.length; i++) {
       console.log(spec_array[i]);
-      let supportedBrowsers = ["chrome", "firefox", "safari"];
+      let supportedBrowsers = ["chrome", "firefox", "edge", "safari"];
       if (!supportedBrowsers.includes(spec_array[i].split(" => ")[0])) {
          console.log("\nPlease select serial runs supported browsers : " + supportedBrowsers.toString());
          return;

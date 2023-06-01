@@ -4,7 +4,19 @@ export let driver: WebDriver;
 export let spec: any = {};
 
 export function set_driver(browser: string) {
-   driver = new Builder().forBrowser(browser).build();
+   if (browser.toLowerCase() == "chrome") {
+      // driver = new Builder().forBrowser("chrome").build();
+      driver = new Builder().usingServer("http://localhost:4444").forBrowser("chrome").build();
+   } else if (browser.toLowerCase() == "firefox") {
+      // driver = new Builder().forBrowser("firefox").build();
+      driver = new Builder().usingServer("http://localhost:4444").forBrowser("firefox").build();
+   } else if (browser.toLowerCase() == "edge") {
+      // driver = new Builder().forBrowser("MicrosoftEdge").build();
+      driver = new Builder().usingServer("http://localhost:4444").forBrowser("MicrosoftEdge").build();
+   } else if (browser.toLowerCase() == "safari") {
+      // driver = new Builder().forBrowser("safari").build();
+      driver = new Builder().usingServer("http://localhost:4444").forBrowser("safari").build();
+   }
    driver.manage().window().maximize();
 }
 
