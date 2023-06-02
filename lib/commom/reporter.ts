@@ -20,6 +20,11 @@ export function clearContext() {
    contextMessages = [];
 }
 
+export async function debug(value: string) {
+   logger.debug(value);
+   return;
+}
+
 export async function info(value: string, screenShot?: boolean) {
    logger.info(value);
    let contMsg: any = {};
@@ -69,7 +74,7 @@ export async function fail(value: string, screenShot?: boolean) {
    assert.fail(value);
 }
 
-export function addToContext(testContext: Mocha.Context) {
+export async function addToContext(testContext: Mocha.Context) {
    contextMessages.forEach((msg) => {
       addContext(testContext, msg.txt);
       if (msg.img) {
