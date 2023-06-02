@@ -4,7 +4,8 @@
    "description": "Selenium framework with typescript to automate web.",
    "main": "index.js",
    "scripts": {
-      "docker": "docker-compose -f 'docker-compose.yml' up",
+      "docker-up": "docker-compose -f 'docker-compose.yml' up",
+      "docker-down": "docker-compose down",
       "serial": "npx browser-list && ts-node 'lib/commom/selenium-runnrer-serial.ts'",
       "parallel": "npx browser-list && ts-node 'lib/commom/selenium-runnrer-parallel.ts'"
    },
