@@ -3,7 +3,7 @@ import { getTimeStamp, sleep } from "./utils_common";
 import * as os from "os";
 import * as path from "path";
 
-const cmd = require("node-cmd");
+// const cmd = require("node-cmd");
 
 function run_spec() {
    let system = os.type().toLowerCase();
@@ -69,7 +69,8 @@ function run_spec() {
 
    // console.log(spec_array_with_final_cmd);
 
-   cmd.run(final_cmd);
+   // cmd.run(final_cmd);
+   fs.writeFileSync("./cmd_runner.txt", final_cmd);
 
    console.log("\nReport folder will be as below...\n");
 

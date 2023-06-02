@@ -11,7 +11,7 @@ export function getRandomNumber(minimumNumber: number, maximumNumber: number): n
    return Math.floor(Math.random() * (maximumNumber - minimumNumber + 1) + minimumNumber);
 }
 
-export function init(arg: any, dirPath: string, filePath: string) {
+export async function init(arg: any, dirPath: string, filePath: string) {
    console.log("\n" + JSON.stringify(arg) + "\n");
 
    globalConfig.spec["name"] = filePath.replace(dirPath + "/", "");
@@ -38,7 +38,7 @@ export function init(arg: any, dirPath: string, filePath: string) {
    console.log(JSON.stringify(globalConfig.spec) + "\n");
 
    reporter.setLogger();
-   globalConfig.set_driver(arg.browser);
+   globalConfig.set_driver(arg.browser, true);
 }
 
 export async function sleep(seconds: number) {

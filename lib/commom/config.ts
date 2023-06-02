@@ -3,19 +3,27 @@ import { WebDriver, Builder } from "selenium-webdriver";
 export let driver: WebDriver;
 export let spec: any = {};
 
-export function set_driver(browser: string) {
+export function set_driver(browser: string, docker: boolean) {
    if (browser.toLowerCase() == "chrome") {
-      // driver = new Builder().forBrowser("chrome").build();
-      driver = new Builder().usingServer("http://localhost:4444").forBrowser("chrome").build();
+      if (docker) {
+         driver = new Builder().usingServer("http://localhost:4444").forBrowser("chrome").build();
+      } else {
+         driver = new Builder().forBrowser("chrome").build();
+      }
    } else if (browser.toLowerCase() == "firefox") {
-      // driver = new Builder().forBrowser("firefox").build();
-      driver = new Builder().usingServer("http://localhost:4444").forBrowser("firefox").build();
+      if (docker) {
+         driver = new Builder().usingServer("http://localhost:4444").forBrowser("firefox").build();
+      } else {
+         driver = new Builder().forBrowser("firefox").build();
+      }
    } else if (browser.toLowerCase() == "edge") {
-      // driver = new Builder().forBrowser("MicrosoftEdge").build();
-      driver = new Builder().usingServer("http://localhost:4444").forBrowser("MicrosoftEdge").build();
+      if (docker) {
+         driver = new Builder().usingServer("http://localhost:4444").forBrowser("MicrosoftEdge").build();
+      } else {
+         driver = new Builder().forBrowser("MicrosoftEdge").build();
+      }
    } else if (browser.toLowerCase() == "safari") {
-      // driver = new Builder().forBrowser("safari").build();
-      driver = new Builder().usingServer("http://localhost:4444").forBrowser("safari").build();
+      driver = new Builder().forBrowser("safari").build();
    }
    driver.manage().window().maximize();
 }
