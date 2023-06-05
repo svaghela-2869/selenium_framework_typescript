@@ -10,77 +10,82 @@ const logger = getLogger();
 export let contextMessages: any[] = [];
 
 export function setLogger() {
-   configure({
-      appenders: { out: { type: "stdout", layout: { type: "pattern", pattern: "[%d{yyyy-MM-dd} %r] [%p] %m" } } },
-      categories: { default: { appenders: ["out"], level: "debug" } },
-   });
+  configure({
+    appenders: {
+      out: {
+        type: "stdout",
+        layout: { type: "pattern", pattern: "[%d{yyyy-MM-dd} %r] [%p] %m" },
+      },
+    },
+    categories: { default: { appenders: ["out"], level: "debug" } },
+  });
 }
 
 export function clearContext() {
-   contextMessages = [];
+  contextMessages = [];
 }
 
 export async function debug(value: string) {
-   logger.debug(value);
-   return;
+  logger.debug(value);
+  return;
 }
 
 export async function info(value: string, screenShot?: boolean) {
-   logger.info(value);
-   let contMsg: any = {};
+  logger.info(value);
+  let contMsg: any = {};
 
-   contMsg.txt = "[INFO] : " + value;
+  contMsg.txt = "[INFO] : " + value;
 
-   if (screenShot) {
-      let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
-      await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
-      contMsg.img = "." + imagePath;
-   }
+  if (screenShot) {
+    let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
+    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    contMsg.img = "." + imagePath;
+  }
 
-   contextMessages.push(contMsg);
-   return;
+  contextMessages.push(contMsg);
+  return;
 }
 
 export async function pass(value: string, screenShot?: boolean) {
-   logger.info(value);
-   let contMsg: any = {};
+  logger.info(value);
+  let contMsg: any = {};
 
-   contMsg.txt = "[PASS] : " + value;
+  contMsg.txt = "[PASS] : " + value;
 
-   if (screenShot) {
-      let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
-      await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
-      contMsg.img = "." + imagePath;
-   }
+  if (screenShot) {
+    let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
+    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    contMsg.img = "." + imagePath;
+  }
 
-   contextMessages.push(contMsg);
+  contextMessages.push(contMsg);
 
-   return;
+  return;
 }
 
 export async function fail(value: string, screenShot?: boolean) {
-   logger.fatal(value);
-   let contMsg: any = {};
+  logger.fatal(value);
+  let contMsg: any = {};
 
-   contMsg.txt = "[FAIL] : " + value;
-   if (screenShot) {
-      let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
-      await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
-      contMsg.img = "." + imagePath;
-   }
+  contMsg.txt = "[FAIL] : " + value;
+  if (screenShot) {
+    let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
+    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    contMsg.img = "." + imagePath;
+  }
 
-   contextMessages.push(contMsg);
+  contextMessages.push(contMsg);
 
-   assert.fail(value);
+  assert.fail(value);
 }
 
 export async function addToContext(testContext: Mocha.Context) {
-   contextMessages.forEach((msg) => {
-      addContext(testContext, msg.txt);
-      if (msg.img) {
-         addContext(testContext, msg.img);
-      }
-   });
+  contextMessages.forEach((msg) => {
+    addContext(testContext, msg.txt);
+    if (msg.img) {
+      addContext(testContext, msg.img);
+    }
+  });
 }
 
 // export async function takeScreenshot(imagePath: string) {
@@ -98,10 +103,10 @@ export async function addToContext(testContext: Mocha.Context) {
 // }
 
 export async function takeScreenshot(imagePath: string) {
-   try {
-      let image = await globalConfig.driver.takeScreenshot();
-      writeFileSync(imagePath, image, "base64");
-   } catch (error) {
-      logger.error(error);
-   }
+  try {
+    let image = await globalConfig.driver.takeScreenshot();
+    writeFileSync(imagePath, image, "base64");
+  } catch (error) {
+    logger.error(error);
+  }
 }

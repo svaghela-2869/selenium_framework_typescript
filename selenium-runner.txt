@@ -1,1 +1,1 @@
-firefox => tests/random_search/**/*.spec.ts
+edge => tests/codezeroes/codezeroes_contact_dump.spec.ts

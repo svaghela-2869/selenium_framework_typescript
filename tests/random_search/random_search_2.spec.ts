@@ -9,29 +9,29 @@ import * as globalConfig from "../../lib/commom/config";
 import { Random } from "random-test-values";
 
 describe(__filename.split("selenium_framework_typescript/")[1], function () {
-   //setting up basic details for running the spec
-   before(function () {
-      utils_common.init(yargs, __dirname, __filename);
-   });
+  //setting up basic details for running the spec
+  before(function () {
+    utils_common.init(yargs, __dirname, __filename);
+  });
 
-   beforeEach(function () {
-      reporter.clearContext();
-   });
+  beforeEach(function () {
+    reporter.clearContext();
+  });
 
-   for (let i = 0; i < 2; i++) {
-      it("Random Text Search.", async function () {
-         await uihelper.launch_url("https://google.com");
-         let randomText = Random.String();
-         await uihelper.set_text_with_xpath("//*[@name='q']", randomText);
-         await uihelper.press_enter("//*[@name='q']");
-      });
-   }
+  for (let i = 0; i < 2; i++) {
+    it("Random Text Search.", async function () {
+      await uihelper.launch_url("https://google.com");
+      let randomText = Random.String();
+      await uihelper.set_text_with_xpath("//*[@name='q']", randomText);
+      await uihelper.press_enter("//*[@name='q']");
+    });
+  }
 
-   afterEach(async function () {
-      reporter.addToContext(this);
-   });
+  afterEach(async function () {
+    reporter.addToContext(this);
+  });
 
-   after(async function () {
-      globalConfig.quit_driver();
-   });
+  after(async function () {
+    globalConfig.quit_driver();
+  });
 });
