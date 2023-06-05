@@ -13,10 +13,7 @@ export async function launch_url(url: string) {
 
 export async function set_text_with_xpath(xpath: string, value: string) {
   await driver.findElement(By.xpath(xpath)).sendKeys(value);
-  await reporter.pass(
-    "Value [ " + value + " ] enterd in element [ " + xpath + " ]",
-    true
-  );
+  await reporter.pass("Value [ " + value + " ] enterd in element [ " + xpath + " ]", true);
 }
 
 export async function press_enter(xpath: string) {
@@ -24,18 +21,13 @@ export async function press_enter(xpath: string) {
   await reporter.pass("Press entered on element [ " + xpath + " ]", true);
 }
 
-export async function waitForElementToBePresentOnUI(
-  xpath: string,
-  waitTimeInSeconds: number
-) {
+export async function waitForElementToBePresentOnUI(xpath: string, waitTimeInSeconds: number) {
   await driver.manage().setTimeouts({ implicit: 0 });
   for (let i = 0; i < waitTimeInSeconds; i++) {
     await utils_common.sleep(1);
     try {
       if ((await driver.findElements(By.xpath(xpath))).length > 0) {
-        reporter.debug(
-          "Element with xpath " + xpath + " found in " + i + " seconds"
-        );
+        reporter.debug("Element with xpath " + xpath + " found in " + i + " seconds");
         return true;
       }
     } catch (error) {

@@ -4,31 +4,11 @@ import * as fs from "fs";
 
 export function getTimeStamp() {
   const runDate = new Date();
-  return String(
-    "D" +
-      runDate.getFullYear() +
-      "_" +
-      String(Number(runDate.getMonth() + 1)).padStart(2, "0") +
-      "_" +
-      String(runDate.getDate()).padStart(2, "0") +
-      "T" +
-      String(runDate.getHours()).padStart(2, "0") +
-      "_" +
-      String(runDate.getMinutes()).padStart(2, "0") +
-      "_" +
-      String(runDate.getSeconds()).padStart(2, "0") +
-      "_" +
-      String(runDate.getMilliseconds()).padStart(3, "0")
-  );
+  return String("D" + runDate.getFullYear() + "_" + String(Number(runDate.getMonth() + 1)).padStart(2, "0") + "_" + String(runDate.getDate()).padStart(2, "0") + "T" + String(runDate.getHours()).padStart(2, "0") + "_" + String(runDate.getMinutes()).padStart(2, "0") + "_" + String(runDate.getSeconds()).padStart(2, "0") + "_" + String(runDate.getMilliseconds()).padStart(3, "0"));
 }
 
-export function getRandomNumber(
-  minimumNumber: number,
-  maximumNumber: number
-): number {
-  return Math.floor(
-    Math.random() * (maximumNumber - minimumNumber + 1) + minimumNumber
-  );
+export function getRandomNumber(minimumNumber: number, maximumNumber: number): number {
+  return Math.floor(Math.random() * (maximumNumber - minimumNumber + 1) + minimumNumber);
 }
 
 export async function init(arg: any, dirPath: string, filePath: string) {

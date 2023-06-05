@@ -22,7 +22,7 @@ docker network create grid
 docker run --env SE_VNC_NO_PASSWORD=1 --env SE_VNC_VIEW_ONLY=1 --net grid -d -p 4444:4444 -p 2869:2869 --name selenium --shm-size='2g' selenium/standalone-"${ADDRCMD[1]}":latest
 docker run -d --net grid --name video -v ./"${ADDRCMD[2]}"/recordings:/videos selenium/video:latest
 
-sleep 3
+# sleep 3
 eval "${ADDRCMD[3]}"
 docker stop video &>/dev/null && docker rm video &>/dev/null ; docker stop selenium &>/dev/null && docker rm selenium &>/dev/null ; docker network rm grid &>/dev/null ; docker rm $(docker ps --all -q) -f &>/dev/null
 done

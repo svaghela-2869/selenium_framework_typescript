@@ -6,28 +6,19 @@ export let spec: any = {};
 export function set_driver(browser: string, docker: string) {
   if (browser.toLowerCase() == "chrome") {
     if (docker == "true") {
-      driver = new Builder()
-        .usingServer("http://localhost:4444/")
-        .forBrowser("chrome")
-        .build();
+      driver = new Builder().usingServer("http://localhost:4444/").forBrowser("chrome").build();
     } else {
       driver = new Builder().forBrowser("chrome").build();
     }
   } else if (browser.toLowerCase() == "firefox") {
     if (docker == "true") {
-      driver = new Builder()
-        .usingServer("http://localhost:4444/")
-        .forBrowser("firefox")
-        .build();
+      driver = new Builder().usingServer("http://localhost:4444/").forBrowser("firefox").build();
     } else {
       driver = new Builder().forBrowser("firefox").build();
     }
   } else if (browser.toLowerCase() == "edge") {
     if (docker == "true") {
-      driver = new Builder()
-        .usingServer("http://localhost:4444/")
-        .forBrowser("MicrosoftEdge")
-        .build();
+      driver = new Builder().usingServer("http://localhost:4444/").forBrowser("MicrosoftEdge").build();
     } else {
       driver = new Builder().forBrowser("MicrosoftEdge").build();
     }
