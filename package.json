@@ -7,7 +7,7 @@
     "docker-clean": "docker rm $(docker ps --all -q) -f",
     "serial": "ts-node 'lib/commom/runner/selenium-runner-serial.ts'",
     "parallel": "ts-node 'lib/commom/runner/selenium-runner-parallel.ts'",
-    "docker": "ts-node 'lib/commom/runner/selenium-runner-docker.ts' && bash 'lib/commom/runner/docker.sh'"
+    "docker": "ts-node 'lib/commom/runner/selenium-runner-docker.ts' && bash 'lib/commom/runner/docker-hub.sh'"
   },
   "keywords": [],
   "author": "",
