@@ -9,15 +9,16 @@ function run_spec() {
   const spec_array = sel_runnner.split("\n");
   const spec_array_with_result_folder: string[] = [];
   const spec_array_with_final_cmd: string[] = [];
+  let supportedBrowsers = ["chrome", "firefox", "edge"];
+  let unsupported_browser = false;
 
   console.log("Below spec files / folders will be run serially in docker.\n");
 
   for (let i = 0; i < spec_array.length; i++) {
     console.log(spec_array[i]);
-    let supportedBrowsers = ["chrome", "firefox", "edge"];
     if (!supportedBrowsers.includes(spec_array[i].split(" => ")[0])) {
-      console.log("Warning : Please select docker serial runs supported browsers : " + supportedBrowsers.toString() + ", for current run defaulting to chrome...\n");
       spec_array[i] = spec_array[i].replace(spec_array[i].split(" => ")[0], "chrome");
+      unsupported_browser = true;
     }
     let split = "/";
     if (system.startsWith("win")) {
@@ -37,16 +38,22 @@ function run_spec() {
   // console.log(spec_array_with_result_folder);
 
   console.log("\nTotal spec files / folders found : " + spec_array_with_result_folder.length);
+  if (unsupported_browser) {
+    console.log("\nWarning : Please select docker serial runs supported browsers : " + supportedBrowsers.toString() + ", for current run defaulting to chrome...");
+  }
 
   for (let i = 0; i < spec_array_with_result_folder.length; i++) {
     if (spec_array_with_result_folder[i].split(" => ").length == 4) {
-      let baseCommand = "npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/_docker/TEMP_RESULT_FOLDER_TEMP,reportFilename='selenium-report',reportPageTitle='Mochawesome',embeddedScreenshots=true,charts=true,html=true,json=true,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=false,autoOpen=false' --spec ";
+      let baseCommand = "npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/_docker/TEMP_RESULT_FOLDER_TEMP,reportFilename='selenium-report',reportPageTitle='Mochawesome',embeddedScreenshots=true,charts=true,html=true,json=false,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=false,autoOpen=false' --spec ";
       baseCommand = baseCommand.replace("--browser chrome", "--docker true --browser " + spec_array_with_result_folder[i].split(" => ")[0]);
       baseCommand = baseCommand + spec_array_with_result_folder[i].split(" => ")[1];
       baseCommand = baseCommand.replace("TEMP_RESULT_FOLDER_TEMP", spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2]);
       let final_result_folder = "results/_docker/" + spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2];
       if (!fs.existsSync(final_result_folder)) {
         fs.mkdirSync(final_result_folder, { recursive: true });
+      }
+      if (!fs.existsSync(final_result_folder + "/recordings")) {
+        fs.mkdirSync(final_result_folder + "/recordings", { recursive: true });
       }
       spec_array_with_final_cmd.push(spec_array_with_result_folder[i].split(" => ")[3] + "`" + spec_array_with_result_folder[i].split(" => ")[0] + "`" + final_result_folder + "`" + baseCommand + " >> '" + final_result_folder + "/selenium-log.txt'");
     } else {
