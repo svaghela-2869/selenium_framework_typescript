@@ -61,6 +61,8 @@ function run_spec() {
     spec_array_with_final_cmd[i] = spec_array_with_final_cmd[i] + "\n";
   }
 
+  // console.log(spec_array_with_final_cmd);
+
   fs.writeFileSync("./selenium-runner-final.txt", spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
 
   console.log("\n==================== Selenium Report Files ====================\n");

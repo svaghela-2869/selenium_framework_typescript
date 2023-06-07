@@ -69,7 +69,7 @@ function run_spec() {
 
   // console.log(spec_array_with_final_cmd);
 
-  cmd.run(final_cmd);
+  fs.writeFileSync("./selenium-runner-final.txt", final_cmd);
 
   console.log("\n==================== Selenium Report Files ====================\n");
 
