@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { getTimeStamp, sleep } from "../utils_common";
+import { get_time_stamp, sleep } from "../utils_common";
 import * as os from "os";
 import * as path from "path";
 
@@ -28,9 +28,9 @@ function run_spec() {
     let name_index = spec_array[i].split(" => ")[1].split(split).length;
     let spec_run_data;
     if (spec_array[i].includes("**")) {
-      spec_run_data = spec_array[i] + " => " + getTimeStamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 3].split(".")[0];
+      spec_run_data = spec_array[i] + " => " + get_time_stamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 3].split(".")[0];
     } else {
-      spec_run_data = spec_array[i] + " => " + getTimeStamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 1].split(".")[0];
+      spec_run_data = spec_array[i] + " => " + get_time_stamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 1].split(".")[0];
     }
     spec_array_with_result_folder.push(spec_run_data);
     sleep(1.3);

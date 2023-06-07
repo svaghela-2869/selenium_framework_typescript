@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "docker-clean": "docker rm $(docker ps --all -q) -f",
-    "serial": "ts-node 'lib/commom/runner/selenium-runner-serial.ts'",
+    "serial": "ts-node 'lib/commom/runner/selenium-runner-serial.ts' && bash 'lib/commom/runner/bash-serial.sh'",
     "parallel": "ts-node 'lib/commom/runner/selenium-runner-parallel.ts'",
-    "docker": "ts-node 'lib/commom/runner/selenium-runner-docker.ts' && bash 'lib/commom/runner/docker-hub.sh'"
+    "docker": "ts-node 'lib/commom/runner/selenium-runner-docker.ts' && bash 'lib/commom/runner/bash-docker.sh'"
   },
   "keywords": [],
   "author": "",

@@ -15,7 +15,7 @@ describe(__filename.split("selenium_framework_typescript/")[1], function () {
   });
 
   beforeEach(function () {
-    reporter.clearContext();
+    reporter.clear_context();
   });
 
   for (let i = 0; i < 1; i++) {
@@ -28,7 +28,7 @@ describe(__filename.split("selenium_framework_typescript/")[1], function () {
   }
 
   afterEach(async function () {
-    reporter.addToContext(this);
+    reporter.add_to_context(this);
   });
 
   after(async function () {

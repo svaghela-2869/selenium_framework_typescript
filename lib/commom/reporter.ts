@@ -8,8 +8,9 @@ import { assert } from "chai";
 
 const logger = getLogger();
 export let contextMessages: any[] = [];
+export let step_status = { abort: false, fail: false, msg: "" };
 
-export function setLogger() {
+export function set_logger() {
   configure({
     appenders: {
       out: {
@@ -21,8 +22,9 @@ export function setLogger() {
   });
 }
 
-export function clearContext() {
+export function clear_context() {
   contextMessages = [];
+  step_status.fail = false;
 }
 
 export async function debug(value: string) {
@@ -30,14 +32,14 @@ export async function debug(value: string) {
   return;
 }
 
-export async function info(value: string, screenShot?: boolean) {
-  logger.info(value);
+export async function info(msg: string, screenShot?: boolean) {
+  logger.info(msg);
   let contMsg: any = {};
 
-  contMsg.txt = "[INFO] : " + value;
+  contMsg.txt = "[INFO] : " + msg;
 
   if (screenShot) {
-    let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
     await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
@@ -46,14 +48,14 @@ export async function info(value: string, screenShot?: boolean) {
   return;
 }
 
-export async function pass(value: string, screenShot?: boolean) {
-  logger.info(value);
+export async function pass(msg: string, screenShot?: boolean) {
+  logger.info(msg);
   let contMsg: any = {};
 
-  contMsg.txt = "[PASS] : " + value;
+  contMsg.txt = "[PASS] : " + msg;
 
   if (screenShot) {
-    let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
     await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
@@ -63,23 +65,61 @@ export async function pass(value: string, screenShot?: boolean) {
   return;
 }
 
-export async function fail(value: string, screenShot?: boolean) {
-  logger.fatal(value);
+export async function warn(msg: string, screenShot?: boolean) {
+  logger.warn(msg);
   let contMsg: any = {};
 
-  contMsg.txt = "[FAIL] : " + value;
+  contMsg.txt = "[WARN] : " + msg;
+
   if (screenShot) {
-    let imagePath = "/screenshots/" + utils_common.getTimeStamp() + ".png";
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
     await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
 
   contextMessages.push(contMsg);
 
-  assert.fail(value);
+  return;
 }
 
-export async function addToContext(testContext: Mocha.Context) {
+export async function fail_and_continue(msg: string, screenShot?: boolean) {
+  logger.error(msg);
+  let contMsg: any = {};
+
+  contMsg.txt = "[ERROR] : " + msg;
+  if (screenShot) {
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
+    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    contMsg.img = "." + imagePath;
+  }
+
+  contextMessages.push(contMsg);
+
+  step_status.fail = true;
+  step_status.msg = msg;
+}
+
+export async function fail(msg: string, screenShot?: boolean) {
+  logger.fatal(msg);
+  let contMsg: any = {};
+
+  contMsg.txt = "[FAIL] : " + msg;
+  if (screenShot) {
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
+    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    contMsg.img = "." + imagePath;
+  }
+
+  contextMessages.push(contMsg);
+
+  step_status.abort = true;
+  step_status.fail = true;
+  step_status.msg = msg;
+
+  assert.fail(msg);
+}
+
+export async function add_to_context(testContext: Mocha.Context) {
   contextMessages.forEach((msg) => {
     addContext(testContext, msg.txt);
     if (msg.img) {
