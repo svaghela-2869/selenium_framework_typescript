@@ -1,12 +1,13 @@
 import { configure, getLogger } from "log4js";
-const addContext = require("mochawesome/addContext");
-// const screenshot = require("desktop-screenshot");
 import * as utils_common from "./utils_common";
 import * as globalConfig from "./config";
 import { writeFileSync } from "fs";
 import { assert } from "chai";
 
+const addContext = require("mochawesome/addContext");
 const logger = getLogger();
+const dateFormat = require("dateformat");
+
 export let contextMessages: any[] = [];
 export let step_status = { abort: false, fail: false, msg: "" };
 
@@ -36,10 +37,10 @@ export async function info(msg: string, screenShot?: boolean) {
   logger.info(msg);
   let contMsg: any = {};
 
-  contMsg.txt = "[INFO] : " + msg;
+  contMsg.txt = "[" + dateFormat("yyyy-mm-dd HH:MM:ss") + "]" + " [INFO] : " + msg;
 
   if (screenShot) {
-    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
     await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
@@ -52,10 +53,10 @@ export async function pass(msg: string, screenShot?: boolean) {
   logger.info(msg);
   let contMsg: any = {};
 
-  contMsg.txt = "[PASS] : " + msg;
+  contMsg.txt = "[" + dateFormat("yyyy-mm-dd HH:MM:ss") + "]" + " [PASS] : " + msg;
 
   if (screenShot) {
-    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
     await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
@@ -69,10 +70,10 @@ export async function warn(msg: string, screenShot?: boolean) {
   logger.warn(msg);
   let contMsg: any = {};
 
-  contMsg.txt = "[WARN] : " + msg;
+  contMsg.txt = "[" + dateFormat("yyyy-mm-dd HH:MM:ss") + "]" + " [WARN] : " + msg;
 
   if (screenShot) {
-    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
     await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
@@ -86,9 +87,9 @@ export async function fail_and_continue(msg: string, screenShot?: boolean) {
   logger.error(msg);
   let contMsg: any = {};
 
-  contMsg.txt = "[ERROR] : " + msg;
+  contMsg.txt = "[" + dateFormat("yyyy-mm-dd HH:MM:ss") + "]" + " [ERROR] : " + msg;
   if (screenShot) {
-    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
     await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
@@ -103,9 +104,9 @@ export async function fail(msg: string, screenShot?: boolean) {
   logger.fatal(msg);
   let contMsg: any = {};
 
-  contMsg.txt = "[FAIL] : " + msg;
+  contMsg.txt = "[" + dateFormat("yyyy-mm-dd HH:MM:ss") + "]" + " [FAIL] : " + msg;
   if (screenShot) {
-    let imagePath = "/screenshots/" + utils_common.get_time_stamp() + ".png";
+    let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
     await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
@@ -127,20 +128,6 @@ export async function add_to_context(testContext: Mocha.Context) {
     }
   });
 }
-
-// export async function takeScreenshot(imagePath: string) {
-//    return new Promise<void>((resolve, reject) => {
-//       screenshot(imagePath, function (error: any) {
-//          if (error) {
-//             // throw new Error("Failed to capture screenshot : " + error);
-//             logger.error(error);
-//             reject();
-//          } else {
-//             resolve();
-//          }
-//       });
-//    });
-// }
 
 export async function takeScreenshot(imagePath: string) {
   try {

@@ -1,9 +1,9 @@
 const yargs = require("yargs").argv;
 
-import * as reporter from "../../lib/commom/reporter";
-import * as utils_common from "../../lib/commom/utils_common";
-import * as uihelper from "../../lib/commom/uihelper";
-import * as globalConfig from "../../lib/commom/config";
+import * as reporter from "../../../lib/commom/reporter";
+import * as utils_common from "../../../lib/commom/utils_common";
+import * as uihelper from "../../../lib/commom/uihelper";
+import * as globalConfig from "../../../lib/commom/config";
 import { Random } from "random-test-values";
 
 import { By } from "selenium-webdriver";

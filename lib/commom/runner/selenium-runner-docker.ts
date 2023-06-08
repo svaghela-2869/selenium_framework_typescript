@@ -44,7 +44,7 @@ function run_spec() {
 
   for (let i = 0; i < spec_array_with_result_folder.length; i++) {
     if (spec_array_with_result_folder[i].split(" => ").length == 4) {
-      let baseCommand = "npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/_docker/TEMP_RESULT_FOLDER_TEMP,reportFilename='selenium-report',reportPageTitle='Mochawesome',embeddedScreenshots=true,charts=true,html=true,json=false,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=false,autoOpen=false' --spec ";
+      let baseCommand = "npx mocha --require 'ts-node/register' --browser chrome --diff true --full-trace true --no-timeouts --reporter mochawesome --reporter-options 'reportDir=results/_docker/TEMP_RESULT_FOLDER_TEMP,reportFilename='selenium-report',reportPageTitle='Mochawesome',embeddedScreenshots=true,charts=true,html=true,json=false,overwrite=true,inlineAssets=true,saveAllAttempts=false,code=false,quiet=false,ignoreVideos=true,showPending=true,autoOpen=false' --spec ";
       baseCommand = baseCommand.replace("--browser chrome", "--docker true --browser " + spec_array_with_result_folder[i].split(" => ")[0]);
       baseCommand = baseCommand + spec_array_with_result_folder[i].split(" => ")[1];
       baseCommand = baseCommand.replace("TEMP_RESULT_FOLDER_TEMP", spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2]);
@@ -70,7 +70,7 @@ function run_spec() {
 
   // console.log(spec_array_with_final_cmd);
 
-  fs.writeFileSync("./selenium-runner-final.txt", spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
+  fs.writeFileSync("./lib/commom/runner/run.txt", spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
 
   console.log("\n==================== Selenium Report Files ====================\n");
 

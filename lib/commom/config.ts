@@ -3,7 +3,7 @@ import { WebDriver, Builder } from "selenium-webdriver";
 export let driver: WebDriver;
 export let spec: any = {};
 
-export function set_driver(browser: string, docker: string) {
+export async function set_driver(browser: string, docker: string) {
   if (browser.toLowerCase() == "chrome") {
     if (docker == "true") {
       driver = new Builder().usingServer("http://localhost:4444/").forBrowser("chrome").build();
@@ -25,17 +25,17 @@ export function set_driver(browser: string, docker: string) {
   } else if (browser.toLowerCase() == "safari") {
     driver = new Builder().forBrowser("safari").build();
   }
-  driver.manage().window().maximize();
+  await driver.manage().window().maximize();
 }
 
-export function close_driver() {
+export async function close_driver() {
   // const waitTill = new Date(new Date().getTime() + 2000);
   // while (waitTill > new Date()) {}
-  driver.close();
+  await driver.close();
 }
 
-export function quit_driver() {
+export async function quit_driver() {
   // const waitTill = new Date(new Date().getTime() + 5000);
   // while (waitTill > new Date()) {}
-  driver.quit();
+  await driver.quit();
 }

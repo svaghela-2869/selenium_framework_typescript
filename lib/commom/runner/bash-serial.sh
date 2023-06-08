@@ -1,4 +1,4 @@
-serial_cmd=`cat selenium-runner-final.txt`
+serial_cmd=`cat lib/commom/runner/run.txt`
 
 IFS=$'\n'
 ADDR=( ${serial_cmd} )

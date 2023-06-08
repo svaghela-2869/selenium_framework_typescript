@@ -1,4 +1,4 @@
-docker_cmd=`cat selenium-runner-final.txt`
+docker_cmd=`cat lib/commom/runner/run.txt`
 
 echo -e "\n======================== Selenium Grid ========================"
 echo -e "\nhttp://localhost:4444"

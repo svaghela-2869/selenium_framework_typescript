@@ -2,9 +2,12 @@ import * as globalConfig from "./config";
 import * as reporter from "./reporter";
 import * as fs from "fs";
 
-export function get_time_stamp() {
-  const runDate = new Date();
-  return String("D" + runDate.getFullYear() + "_" + String(Number(runDate.getMonth() + 1)).padStart(2, "0") + "_" + String(runDate.getDate()).padStart(2, "0") + "T" + String(runDate.getHours()).padStart(2, "0") + "_" + String(runDate.getMinutes()).padStart(2, "0") + "_" + String(runDate.getSeconds()).padStart(2, "0") + "_" + String(runDate.getMilliseconds()).padStart(3, "0"));
+const dateFormat = require("dateformat");
+
+export function get_time_stamp(format: string = "yyyymmddHHMMss") {
+  return dateFormat(format);
+  // const runDate = new Date();
+  // return String("D" + runDate.getFullYear() + "_" + String(Number(runDate.getMonth() + 1)).padStart(2, "0") + "_" + String(runDate.getDate()).padStart(2, "0") + "T" + String(runDate.getHours()).padStart(2, "0") + "_" + String(runDate.getMinutes()).padStart(2, "0") + "_" + String(runDate.getSeconds()).padStart(2, "0") + "_" + String(runDate.getMilliseconds()).padStart(3, "0"));
 }
 
 export function get_random_number(minimumNumber: number, maximumNumber: number): number {
@@ -15,6 +18,7 @@ export async function init(arg: any, dirPath: string, filePath: string) {
   console.log("\n" + JSON.stringify(arg) + "\n");
 
   globalConfig.spec["name"] = filePath.replace(dirPath + "/", "");
+  globalConfig.spec["ts"] = filePath;
 
   let ro = String(arg["reporter-options"]).split(",");
   ro.forEach(function (o: string) {
@@ -39,11 +43,13 @@ export async function init(arg: any, dirPath: string, filePath: string) {
 
   reporter.set_logger();
 
+  await reporter.info("TS Path [ " + globalConfig.spec.ts + " ]");
+
   let docker = String(arg["docker"]);
   if (docker == "true") {
-    globalConfig.set_driver(arg.browser, "true");
+    await globalConfig.set_driver(arg.browser, "true");
   } else {
-    globalConfig.set_driver(arg.browser, "false");
+    await globalConfig.set_driver(arg.browser, "false");
   }
 }
 
