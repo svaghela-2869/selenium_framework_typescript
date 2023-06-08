@@ -40,7 +40,7 @@ before(async function () {
         });
       }
     } else {
-      it("No spec data", async function () {
+      it("nothing to run in spec data file !!!", async function () {
         await reporter.fail("check selenium-log.txt for more details...");
       });
     }

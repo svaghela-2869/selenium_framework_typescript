@@ -28,7 +28,7 @@ export async function press_enter(xpath: string) {
   }
 }
 
-export async function waitForElementToBePresentOnUI(xpath: string, waitTimeInSeconds: number) {
+export async function wait_for_element_to_be_present_on_ui(xpath: string, waitTimeInSeconds: number) {
   await driver.manage().setTimeouts({ implicit: 0 });
   for (let i = 0; i < waitTimeInSeconds; i++) {
     await utils_common.sleep(1);

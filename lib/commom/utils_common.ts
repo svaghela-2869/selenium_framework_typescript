@@ -62,10 +62,11 @@ export async function sleep(seconds: number) {
 }
 
 export async function get_all_api_calls(data_file: string) {
-  console.log(data_file);
   if (fs.existsSync(data_file)) {
     let csv_string = fs.readFileSync(data_file).toString();
     let csvdata = papa.parse(csv_string, { delimiter: "," });
     console.log(csvdata.data);
+  } else {
+    await reporter.fail("csv data file not found !!!");
   }
 }

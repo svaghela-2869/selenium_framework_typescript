@@ -41,7 +41,7 @@ export async function info(msg: string, screenShot?: boolean) {
 
   if (screenShot) {
     let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
-    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    await take_screenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
 
@@ -57,7 +57,7 @@ export async function pass(msg: string, screenShot?: boolean) {
 
   if (screenShot) {
     let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
-    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    await take_screenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
 
@@ -74,7 +74,7 @@ export async function warn(msg: string, screenShot?: boolean) {
 
   if (screenShot) {
     let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
-    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    await take_screenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
 
@@ -90,7 +90,7 @@ export async function fail_and_continue(msg: string, screenShot?: boolean) {
   contMsg.txt = "[" + dateFormat("yyyy-mm-dd HH:MM:ss") + "]" + " [ERROR] : " + msg;
   if (screenShot) {
     let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
-    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    await take_screenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
 
@@ -107,7 +107,7 @@ export async function fail(msg: string, screenShot?: boolean) {
   contMsg.txt = "[" + dateFormat("yyyy-mm-dd HH:MM:ss") + "]" + " [FAIL] : " + msg;
   if (screenShot) {
     let imagePath = "/screenshots/" + utils_common.get_time_stamp("yyyymmddHHMMssl") + ".png";
-    await takeScreenshot(globalConfig.spec.resultFolder + imagePath);
+    await take_screenshot(globalConfig.spec.resultFolder + imagePath);
     contMsg.img = "." + imagePath;
   }
 
@@ -129,7 +129,7 @@ export async function add_to_context(testContext: Mocha.Context) {
   });
 }
 
-export async function takeScreenshot(imagePath: string) {
+export async function take_screenshot(imagePath: string) {
   try {
     let image = await globalConfig.driver.takeScreenshot();
     writeFileSync(imagePath, image, "base64");

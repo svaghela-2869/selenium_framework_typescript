@@ -24,6 +24,7 @@
     "log4js": "^6.9.1",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",
+    "node-uname": "^3.0.4",
     "papaparse": "^5.4.1",
     "path": "^0.12.7",
     "random-test-values": "^2.0.0",
