@@ -10,7 +10,7 @@
     "allowJs": false,
     "strict": true,
     "noImplicitAny": false,
-    "noUnusedLocals": true,
+    // "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true
   },

@@ -23,7 +23,7 @@ export function set_logger() {
   });
 }
 
-export function clear_context() {
+export async function clear_context() {
   contextMessages = [];
   step_status.fail = false;
 }

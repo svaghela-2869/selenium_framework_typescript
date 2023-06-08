@@ -3,6 +3,7 @@ import * as reporter from "./reporter";
 import * as fs from "fs";
 
 const dateFormat = require("dateformat");
+const papa = require("papaparse");
 
 export function get_time_stamp(format: string = "yyyymmddHHMMss") {
   return dateFormat(format);
@@ -17,8 +18,9 @@ export function get_random_number(minimumNumber: number, maximumNumber: number):
 export async function init(arg: any, dirPath: string, filePath: string) {
   console.log("\n" + JSON.stringify(arg) + "\n");
 
-  globalConfig.spec["name"] = filePath.replace(dirPath + "/", "");
+  globalConfig.spec["name"] = filePath.replace(dirPath + "/", "").replace(".spec.ts", "");
   globalConfig.spec["ts"] = filePath;
+  globalConfig.spec["csv"] = filePath.replace(".ts", ".csv");
 
   let ro = String(arg["reporter-options"]).split(",");
   ro.forEach(function (o: string) {
@@ -39,11 +41,12 @@ export async function init(arg: any, dirPath: string, filePath: string) {
     });
   }
 
-  console.log(JSON.stringify(globalConfig.spec) + "\n");
+  console.log(JSON.stringify(globalConfig.spec, null, 2) + "\n");
 
   reporter.set_logger();
 
-  await reporter.info("TS Path [ " + globalConfig.spec.ts + " ]");
+  await reporter.info("SPEC Path [ " + globalConfig.spec.ts + " ]");
+  await reporter.info("DATA Path [ " + globalConfig.spec.csv + " ]");
 
   let docker = String(arg["docker"]);
   if (docker == "true") {
@@ -56,4 +59,13 @@ export async function init(arg: any, dirPath: string, filePath: string) {
 export async function sleep(seconds: number) {
   const waitTill = new Date(new Date().getTime() + Number(seconds * 1000));
   while (waitTill > new Date()) {}
+}
+
+export async function get_all_api_calls(data_file: string) {
+  console.log(data_file);
+  if (fs.existsSync(data_file)) {
+    let csv_string = fs.readFileSync(data_file).toString();
+    let csvdata = papa.parse(csv_string, { delimiter: "," });
+    console.log(csvdata.data);
+  }
 }
