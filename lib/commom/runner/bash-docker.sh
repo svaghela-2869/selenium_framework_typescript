@@ -1,23 +1,20 @@
 docker_cmd_tmp=`cat lib/commom/runner/run.txt`
 
-IFS=$'\n'
-read -a lines_tmp <<< "$docker_cmd_tmp"
+IFS=$'\n' read -a lines_tmp <<< "$docker_cmd_tmp"
 
 sel_type="${lines_tmp[0]}"
+
+echo $sel_type
+
 tail -n +2 "lib/commom/runner/run.txt" > "lib/commom/runner/run.txt.tmp" && mv "lib/commom/runner/run.txt.tmp" "lib/commom/runner/run.txt"
 
-echo -e "\n======================== ${lines_tmp[0]} grid ========================"
+echo -e "\n======================== Selenium Grid ========================"
 echo -e "\nhttp://localhost:4444"
 echo -e "\n===============================================================\n"
 
 docker_cmd=`cat lib/commom/runner/run.txt`
 
-IFS=$'\n'
-read -a lines <<< "$docker_cmd"
-
-echo $docker_cmd
-echo $lines
-exit
+IFS=$'\n' lines=( ${docker_cmd} )
 
 echo -e "<< entry >>"
 docker network create grid
