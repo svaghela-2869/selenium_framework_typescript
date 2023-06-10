@@ -7,7 +7,11 @@
     "docker-clean": "docker rm $(docker ps --all -q) -f",
     "serial": "ts-node 'lib/commom/runner/selenium-runner-serial.ts' && bash 'lib/commom/runner/bash-serial.sh'",
     "parallel": "ts-node 'lib/commom/runner/selenium-runner-parallel.ts' && bash 'lib/commom/runner/bash-parallel.sh'",
-    "docker": "ts-node 'lib/commom/runner/selenium-runner-docker.ts' && bash 'lib/commom/runner/bash-docker.sh'"
+    "docker": "ts-node 'lib/commom/runner/selenium-runner-docker.ts' && bash 'lib/commom/runner/bash-docker.sh'",
+    "serial-win": "ts-node lib\\commom\\runner\\selenium-runner-serial.ts && bash lib\\commom\\runner\\bash-serial.sh",
+    "parallel-win": "ts-node lib\\commom\\runner\\selenium-runner-parallel.ts && bash lib\\commom\\runner\\bash-parallel.sh",
+    "docker-win": "ts-node lib\\commom\\runner\\selenium-runner-docker.ts && bash lib\\commom\\runner\\bash-docker.sh"
+  
   },
   "keywords": [],
   "author": "",
@@ -24,7 +28,6 @@
     "log4js": "^6.9.1",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",
-    "node-uname": "^3.0.4",
     "papaparse": "^5.4.1",
     "path": "^0.12.7",
     "random-test-values": "^2.0.0",

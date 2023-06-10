@@ -1,6 +1,7 @@
 import * as globalConfig from "./config";
 import * as reporter from "./reporter";
 import * as fs from "fs";
+import * as os from "os";
 
 const dateFormat = require("dateformat");
 const papa = require("papaparse");
@@ -19,6 +20,10 @@ export async function init(arg: any, dirPath: string, filePath: string) {
   console.log("\n" + JSON.stringify(arg) + "\n");
 
   globalConfig.spec["name"] = filePath.replace(dirPath + "/", "").replace(".spec.ts", "");
+  if (os.type().toLocaleLowerCase().startsWith("win")) {
+    globalConfig.spec["name"] = filePath.replace(dirPath + "\\", "").replace(".spec.ts", "");
+  }
+
   globalConfig.spec["ts"] = filePath;
   globalConfig.spec["csv"] = filePath.replace(".ts", ".csv");
 

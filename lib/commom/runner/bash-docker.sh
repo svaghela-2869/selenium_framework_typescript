@@ -37,7 +37,7 @@ frame=30
 docker run --env SE_EVENT_BUS_HOST="${sel_type}"-hub --env SE_EVENT_BUS_PUBLISH_PORT=4442 --env SE_EVENT_BUS_SUBSCRIBE_PORT=4443 --env SE_SCREEN_WIDTH=$width --env SE_SCREEN_HEIGHT=$height --env SE_VNC_NO_PASSWORD=1 --env SE_VNC_VIEW_ONLY=1 --net grid -d --name "${sel_type}" --shm-size='2g' "${lines_split[1]}"
 
 if [ "${sel_type}" == "selenium" ]; then
-  docker run --env SE_EVENT_BUS_HOST="${sel_type}"-hub --env SE_EVENT_BUS_PUBLISH_PORT=4442 --env SE_EVENT_BUS_SUBSCRIBE_PORT=4443 --env SE_SCREEN_WIDTH=$width --env SE_SCREEN_HEIGHT=$height --env SE_FRAME_RATE=$frame --env FILE_NAME="${lines_split[0]}".mp4 -d --net grid --name video -v ./"${lines_split[2]}"/recordings:/videos selenium/video:latest
+  docker run --env SE_EVENT_BUS_HOST="${sel_type}"-hub --env SE_EVENT_BUS_PUBLISH_PORT=4442 --env SE_EVENT_BUS_SUBSCRIBE_PORT=4443 --env SE_SCREEN_WIDTH=$width --env SE_SCREEN_HEIGHT=$height --env SE_FRAME_RATE=$frame --env FILE_NAME="${lines_split[0]}".mp4 -d --net grid --name video -v "${lines_split[2]}":/videos selenium/video:latest
 fi
 
 eval "${lines_split[3]}"
