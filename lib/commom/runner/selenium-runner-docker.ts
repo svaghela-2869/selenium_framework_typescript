@@ -28,7 +28,8 @@ function run_spec() {
     }
 
     let name_index = spec_array[i].split(" => ")[1].split(split).length;
-    let spec_run_data;
+    let spec_run_data: string;
+
     if (spec_array[i].includes("**")) {
       spec_run_data = spec_array[i] + " => " + get_time_stamp() + " => " + spec_array[i].split(" => ")[1].split(split)[name_index - 3].split(".")[0];
     } else {
@@ -83,7 +84,8 @@ function run_spec() {
           return;
         }
       }
-      spec_array_with_final_cmd.push(spec_array_with_result_folder[i].split(" => ")[3] + "`" + docker_image + "`" + recording_folder + "`" + baseCommand + " &> '" + final_result_folder + "/selenium-log.txt'");
+
+      spec_array_with_final_cmd.push(String(spec_array_with_result_folder[i].split(" => ")[3] + "`" + docker_image + "`" + recording_folder + "`" + baseCommand + " &> '" + final_result_folder + "/selenium-log.txt'").replaceAll("\r", ""));
     } else {
       console.error("\nPlease check selenium-runner.txt for error...");
       return;
@@ -93,7 +95,11 @@ function run_spec() {
   // console.log(spec_array_with_final_cmd);
 
   for (let i = 0; i < spec_array_with_final_cmd.length; i++) {
-    spec_array_with_final_cmd[i] = spec_array_with_final_cmd[i] + "\n";
+    if (i == spec_array_with_final_cmd.length - 1) {
+      spec_array_with_final_cmd[i] = spec_array_with_final_cmd[i];
+    } else {
+      spec_array_with_final_cmd[i] = spec_array_with_final_cmd[i] + "\n";
+    }
   }
 
   // console.log(spec_array_with_final_cmd);
@@ -110,14 +116,8 @@ function run_spec() {
 
   for (let i = 0; i < spec_array_with_result_folder.length; i++) {
     let report_folder_path = "../../../results/_docker/" + spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2];
-    let report = path.resolve(__dirname, String(report_folder_path + "/selenium-report.html"));
     let log = path.resolve(__dirname, String(report_folder_path + "/selenium-log.txt"));
-
-    if (os.type().toLocaleLowerCase().startsWith("win")) {
-      log = log.replaceAll("/", "\\\\");
-      log = log.replaceAll("/", "\\\\");
-    }
-
+    let report = path.resolve(__dirname, String(report_folder_path + "/selenium-report.html"));
     console.log(log);
     console.log(report + "\n");
   }
