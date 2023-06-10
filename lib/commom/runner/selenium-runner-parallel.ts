@@ -48,7 +48,8 @@ function run_spec() {
       if (!fs.existsSync(final_result_folder)) {
         fs.mkdirSync(final_result_folder, { recursive: true });
       }
-      spec_array_with_final_cmd.push(baseCommand + " > '" + final_result_folder + "/selenium-log.txt'");
+      let final_command_push = String(String(baseCommand + " > '" + final_result_folder + "/selenium-log.txt'").replaceAll("\n", "")).replaceAll("\r", "");
+      spec_array_with_final_cmd.push(final_command_push);
     } else {
       console.error("\nPlease check selenium-runner.txt for error...");
       return;
@@ -73,12 +74,8 @@ function run_spec() {
 
   for (let i = 0; i < spec_array_with_result_folder.length; i++) {
     let report_folder_path = "../../../results/_parallel/" + spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2];
-    let report = path.resolve(__dirname, String(report_folder_path + "/selenium-report.html"));
     let log = path.resolve(__dirname, String(report_folder_path + "/selenium-log.txt"));
-    if (system.startsWith("win")) {
-      log = log.replaceAll("/", "\\\\");
-      log = log.replaceAll("/", "\\\\");
-    }
+    let report = path.resolve(__dirname, String(report_folder_path + "/selenium-report.html"));
     console.log(log);
     console.log(report + "\n");
   }
