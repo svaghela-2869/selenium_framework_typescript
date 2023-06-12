@@ -105,12 +105,10 @@ function run_spec() {
   // console.log(spec_array_with_final_cmd);
 
   if (os.arch() == "arm64") {
-    fs.writeFileSync("./lib/commom/runner/run.txt", "seleniarm\n" + spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
+    fs.writeFileSync(path.resolve(__dirname, String("./run.txt")), "seleniarm\n" + spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
   } else {
-    fs.writeFileSync("./lib/commom/runner/run.txt", "selenium\n" + spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
+    fs.writeFileSync(path.resolve(__dirname, String("./run.txt")), "selenium\n" + spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
   }
-
-  // fs.writeFileSync("./lib/commom/runner/run.txt", system.uname().machine.toLowerCase() + "\n" + spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
 
   console.log("\n==================== Selenium Report Files ====================\n");
 

@@ -77,7 +77,7 @@ function run_spec() {
 
   // console.log(spec_array_with_final_cmd);
 
-  fs.writeFileSync("./lib/commom/runner/run.txt", spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
+  fs.writeFileSync(path.resolve(__dirname, String("./run.txt")), spec_array_with_final_cmd.toString().replaceAll("\n,", "\n"));
 
   console.log("\n==================== Selenium Report Files ====================\n");
 
