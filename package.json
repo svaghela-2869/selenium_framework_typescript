@@ -2,19 +2,19 @@
   "name": "selenium_framework_typescript",
   "version": "1.0.0",
   "description": "Selenium framework with typescript to automate web.",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "main": "index.js",
   "scripts": {
     "docker-clean": "docker rm $(docker ps --all -q) -f",
-    "serial": "ts-node 'lib/commom/runner/selenium-runner-serial.ts' && bash 'lib/commom/runner/bash-serial.sh'",
-    "parallel": "ts-node 'lib/commom/runner/selenium-runner-parallel.ts' && bash 'lib/commom/runner/bash-parallel.sh'",
-    "docker": "ts-node 'lib/commom/runner/selenium-runner-docker.ts' && bash 'lib/commom/runner/bash-docker.sh'",
-    "serial-win": "ts-node lib\\commom\\runner\\selenium-runner-serial.ts && bash lib\\commom\\runner\\bash-serial.sh",
+    "docker-mac": "ts-node 'lib/commom/runner/selenium-runner-docker.ts' && bash 'lib/commom/runner/bash-docker.sh'",
+    "docker-win": "ts-node lib\\commom\\runner\\selenium-runner-docker.ts && bash lib\\commom\\runner\\bash-docker.sh",
+    "parallel-mac": "ts-node 'lib/commom/runner/selenium-runner-parallel.ts' && bash 'lib/commom/runner/bash-parallel.sh'",
     "parallel-win": "ts-node lib\\commom\\runner\\selenium-runner-parallel.ts && bash lib\\commom\\runner\\bash-parallel.sh",
-    "docker-win": "ts-node lib\\commom\\runner\\selenium-runner-docker.ts && bash lib\\commom\\runner\\bash-docker.sh"
+    "serial-mac": "ts-node 'lib/commom/runner/selenium-runner-serial.ts' && bash 'lib/commom/runner/bash-serial.sh'",
+    "serial-win": "ts-node lib\\commom\\runner\\selenium-runner-serial.ts && bash lib\\commom\\runner\\bash-serial.sh"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
