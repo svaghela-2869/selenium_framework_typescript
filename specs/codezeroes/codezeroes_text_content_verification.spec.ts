@@ -26,9 +26,8 @@ before(async function () {
     if (api_calls_to_make.length > 0) {
       for (let i = 0; i < api_calls_to_make.length; i++) {
         const step = api_calls_to_make[i];
-        console.log("step : " + JSON.stringify(step));
-        (step.zeroColumn == "skip" ? xit : it)(step.description || "step", async function () {
-          await reporter.info(step.name);
+        (step.zeroColumn == "skip" ? xit : it)(step.description, async function () {
+          await reporter.info("Execute pending : " + step.name);
           if (reporter.step_status.fail) {
             assert.fail(reporter.step_status.msg);
           }

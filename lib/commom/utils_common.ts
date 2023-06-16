@@ -97,9 +97,9 @@ export async function get_all_api_calls(data_file: string) {
         });
 
         if (api) {
-          newStep["api"] = api.name;
+          newStep["name"] = api.name;
           newStep["path"] = api.path;
-          newStep["description"] = api.descr;
+          newStep["description"] = api.description;
           newStep["data"] = _.drop(step);
           new_api_calls.push(newStep);
         } else {
