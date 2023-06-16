@@ -93,7 +93,7 @@ export async function get_all_api_calls(data_file: string) {
         }
 
         let api = _.find(available_apis_to_call, function (item: any) {
-          return String(item.name.toString().equalsIgnoreCase(firstColumn));
+          return Boolean(item.name.toString().equalsIgnoreCase(firstColumn));
         });
 
         if (api) {
@@ -103,7 +103,7 @@ export async function get_all_api_calls(data_file: string) {
           newStep["data"] = _.drop(step);
           new_api_calls.push(newStep);
         } else {
-          await reporter.fail_and_continue("Method '" + firstColumn + "' does not exists, please check and update csv !!!");
+          reporter.logger.error("method '" + firstColumn + "' does not exists, please check and update csv !!!");
           invalid_csv = true;
         }
       }
@@ -113,7 +113,7 @@ export async function get_all_api_calls(data_file: string) {
   }
 
   if (invalid_csv) {
-    console.log("invalid csv !!!");
+    reporter.logger.error("invalid csv !!!");
     return [];
   } else {
     return new_api_calls;

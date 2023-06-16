@@ -5,7 +5,7 @@ import { writeFileSync } from "fs";
 import { assert } from "chai";
 
 const addContext = require("mochawesome/addContext");
-const logger = getLogger();
+export const logger = getLogger();
 const dateFormat = require("dateformat");
 
 export let contextMessages: any[] = [];

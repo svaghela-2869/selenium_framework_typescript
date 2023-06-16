@@ -10,8 +10,7 @@ export function spec_runner(argv: any, dirname: string, filename: string) {
 
   before(async function () {
     await utils_common.init(argv, dirname, filename);
-
-    let api_calls_to_make = await utils_common.get_all_api_calls(globalConfig.spec.csv);
+    const api_calls_to_make = await utils_common.get_all_api_calls(globalConfig.spec.csv);
 
     describe(globalConfig.spec.name, async function () {
       beforeEach(async function () {
