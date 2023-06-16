@@ -1,3 +1,1 @@
-firefox => specs/codezeroes/codezeroes_text_content_verification.spec.ts
 chrome => specs/codezeroes/codezeroes_text_content_verification.spec.ts
-edge => specs/codezeroes/codezeroes_text_content_verification.spec.ts

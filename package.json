@@ -24,6 +24,7 @@
     "chai": "^4.3.7",
     "dateformat": "4.6.3",
     "fs": "^0.0.1-security",
+    "lodash": "^4.17.21",
     "log4js": "^6.9.1",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",

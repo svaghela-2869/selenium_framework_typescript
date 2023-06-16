@@ -2,9 +2,12 @@ import * as globalConfig from "./config";
 import * as reporter from "./reporter";
 import * as fs from "fs";
 import * as os from "os";
+import * as path from "path";
+import "./extentions";
 
 const dateFormat = require("dateformat");
 const papa = require("papaparse");
+const _ = require("lodash");
 
 export function get_time_stamp(format: string = "yyyymmddHHMMss") {
   return dateFormat(format);
@@ -67,11 +70,57 @@ export async function sleep(seconds: number) {
 }
 
 export async function get_all_api_calls(data_file: string) {
+  let new_api_calls: any[] = [];
+  let invalid_csv = false;
+
   if (fs.existsSync(data_file)) {
+    let available_apis_to_call = await get_api_list();
+
     let csv_string = fs.readFileSync(data_file).toString();
-    let csvdata = papa.parse(csv_string, { delimiter: "," });
-    console.log(csvdata.data);
+    let csv_apis_data = papa.parse(csv_string, { delimiter: "," });
+    let csv_apis = csv_apis_data.data;
+
+    for (let i = 0; i < csv_apis.length; i++) {
+      let step = csv_apis[i];
+      let newStep: any = {};
+
+      if (step && step.length > 0) {
+        let firstColumn = _.first(step);
+        if (firstColumn.toString().equalsIgnoreCase("skip")) {
+          newStep["zeroColumn"] = firstColumn;
+          step = _.drop(step);
+          firstColumn = _.first(step).trim();
+        }
+
+        let api = _.find(available_apis_to_call, function (item: any) {
+          return String(item.name.toString().equalsIgnoreCase(firstColumn));
+        });
+
+        if (api) {
+          newStep["api"] = api.name;
+          newStep["path"] = api.path;
+          newStep["description"] = api.descr;
+          newStep["data"] = _.drop(step);
+          new_api_calls.push(newStep);
+        } else {
+          await reporter.fail_and_continue("Method '" + firstColumn + "' does not exists, please check and update csv !!!");
+          invalid_csv = true;
+        }
+      }
+    }
   } else {
     await reporter.fail("csv data file not found !!!");
   }
+
+  if (invalid_csv) {
+    console.log("invalid csv !!!");
+    return [];
+  } else {
+    return new_api_calls;
+  }
+}
+
+async function get_api_list() {
+  let apis = JSON.parse(fs.readFileSync(path.resolve(__dirname + "../../../api_list_common_details.json"), "utf-8")).apis;
+  return apis;
 }
