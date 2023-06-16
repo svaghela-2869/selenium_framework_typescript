@@ -1,10 +1,10 @@
 import * as fs from "fs";
-import { get_time_stamp, sleep } from "../utils_common";
+import { get_time_stamp, sleep } from "../commom/utils_common";
 import * as path from "path";
 import * as os from "os";
 
 function run_spec() {
-  const sel_runnner = fs.readFileSync(path.resolve(__filename, "../../../../selenium-runner.txt"), "utf-8");
+  const sel_runnner = fs.readFileSync(path.resolve(__filename, "../../../selenium-runner.txt"), "utf-8");
   const spec_array = sel_runnner.split("\n");
   const spec_array_with_result_folder: string[] = [];
   const spec_array_with_final_cmd: string[] = [];
@@ -80,8 +80,8 @@ function run_spec() {
         } else if (browser.toLowerCase() == "firefox") {
           docker_image = "seleniarm/node-firefox:latest";
         } else if (browser.toLowerCase() == "edge") {
-          console.log("\nedge is not yet supported in arm64.");
-          return;
+          console.log("\nedge is not yet supported in arm64, for current run defaulting to chrome...");
+          docker_image = "seleniarm/node-chrome:latest";
         }
       }
 
@@ -113,7 +113,7 @@ function run_spec() {
   console.log("\n==================== Selenium Report Files ====================\n");
 
   for (let i = 0; i < spec_array_with_result_folder.length; i++) {
-    let report_folder_path = "../../../results/_docker/" + spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2];
+    let report_folder_path = "../../results/_docker/" + spec_array_with_result_folder[i].split(" => ")[3] + "/" + spec_array_with_result_folder[i].split(" => ")[2];
     let log = path.resolve(__dirname, String(report_folder_path + "/selenium-log.txt"));
     let report = path.resolve(__dirname, String(report_folder_path + "/selenium-report.html"));
     console.log(log);

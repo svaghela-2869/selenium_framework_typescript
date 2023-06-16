@@ -11,8 +11,6 @@ const _ = require("lodash");
 
 export function get_time_stamp(format: string = "yyyymmddHHMMss") {
   return dateFormat(format);
-  // const runDate = new Date();
-  // return String("D" + runDate.getFullYear() + "_" + String(Number(runDate.getMonth() + 1)).padStart(2, "0") + "_" + String(runDate.getDate()).padStart(2, "0") + "T" + String(runDate.getHours()).padStart(2, "0") + "_" + String(runDate.getMinutes()).padStart(2, "0") + "_" + String(runDate.getSeconds()).padStart(2, "0") + "_" + String(runDate.getMilliseconds()).padStart(3, "0"));
 }
 
 export function get_random_number(minimumNumber: number, maximumNumber: number): number {
@@ -27,6 +25,7 @@ export async function init(arg: any, dirPath: string, filePath: string) {
     globalConfig.spec["name"] = filePath.replace(dirPath + "\\", "").replace(".spec.ts", "");
   }
 
+  globalConfig.spec.abspath = path.resolve(__dirname, "../../../selenium_framework_typescript");
   globalConfig.spec["ts"] = filePath;
   globalConfig.spec["csv"] = filePath.replace(".ts", ".csv");
 
@@ -53,8 +52,9 @@ export async function init(arg: any, dirPath: string, filePath: string) {
 
   reporter.set_logger();
 
-  await reporter.info("SPEC Path [ " + globalConfig.spec.ts + " ]");
-  await reporter.info("DATA Path [ " + globalConfig.spec.csv + " ]");
+  await reporter.info("Spec [ " + globalConfig.spec.ts + " ]");
+  await reporter.info("Data [ " + globalConfig.spec.csv + " ]");
+  await reporter.info("Browser [ " + arg.browser + " ]");
 
   let docker = String(arg["docker"]);
   if (docker == "true") {
@@ -123,4 +123,47 @@ export async function get_all_api_calls(data_file: string) {
 async function get_api_list() {
   let apis = JSON.parse(fs.readFileSync(path.resolve(__dirname + "../../../api_list_common_details.json"), "utf-8")).apis;
   return apis;
+}
+
+export async function executeStep(step: any) {
+  await reporter.info("Step [ " + step.name + " ]", false);
+  await reporter.info("Data [ " + step.data + " ]", false);
+
+  let dataMap = await convertStepArrayToMap(step.data);
+  let apiToCall = step.name;
+  let libPath = globalConfig.spec.abspath + "/" + step.path;
+  let apis: any = await import(libPath);
+
+  if (apis[apiToCall]) {
+    if (step.path.includes("uihelper")) {
+      let argsArray: any[] = [];
+      dataMap.forEach((value) => {
+        argsArray.push(value);
+      });
+      await apis[apiToCall].apply(apis, argsArray);
+    } else {
+      await apis[apiToCall].call(apis, dataMap);
+    }
+  } else {
+    await reporter.fail_and_continue("Method '" + step.name + "' does not exists, please check and update csv !!!");
+  }
+}
+
+async function convertStepArrayToMap(data: string[]) {
+  let map = new Map();
+
+  for (let i = 0; i < data.length; i++) {
+    let d = data[i].trim();
+    if (d.includes("=")) {
+      let key = d.substring(0, d.indexOf("=")).trim();
+      let value = d.substring(d.indexOf("=") + 1).trim();
+      if (value != "") {
+        map.set(key, value);
+      }
+    } else {
+      map.set("arg" + i, d);
+    }
+  }
+
+  return map;
 }

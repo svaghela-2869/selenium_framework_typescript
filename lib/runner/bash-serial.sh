@@ -1,4 +1,4 @@
-serial_cmd=`cat lib/commom/runner/run.txt`
+serial_cmd=`cat lib/runner/run.txt`
 
 IFS=$'\n'
 ADDR=( ${serial_cmd} )

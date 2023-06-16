@@ -1,1 +1,3 @@
-chrome => specs/codezeroes/codezeroes_text_content_verification.spec.ts
+chrome => specs/_demo/google_search_1.spec.ts
+firefox => specs/_demo/google_search_2.spec.ts
+edge => specs/_demo/google_search_3.spec.ts

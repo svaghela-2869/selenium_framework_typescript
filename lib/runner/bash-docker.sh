@@ -1,4 +1,4 @@
-docker_cmd_tmp=`cat lib/commom/runner/run.txt`
+docker_cmd_tmp=`cat lib/runner/run.txt`
 
 IFS=$'\n' read -a lines_tmp <<< "$docker_cmd_tmp"
 
@@ -6,13 +6,13 @@ sel_type="${lines_tmp[0]}"
 
 echo $sel_type
 
-tail -n +2 "lib/commom/runner/run.txt" > "lib/commom/runner/run.txt.tmp" && mv "lib/commom/runner/run.txt.tmp" "lib/commom/runner/run.txt"
+tail -n +2 "lib/runner/run.txt" > "lib/runner/run.txt.tmp" && mv "lib/runner/run.txt.tmp" "lib/runner/run.txt"
 
 echo -e "\n======================== Selenium Grid ========================"
 echo -e "\nhttp://localhost:4444"
 echo -e "\n===============================================================\n"
 
-docker_cmd=`cat lib/commom/runner/run.txt`
+docker_cmd=`cat lib/runner/run.txt`
 
 IFS=$'\n' lines=( ${docker_cmd} )
 
