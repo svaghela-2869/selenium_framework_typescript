@@ -1,3 +1,6 @@
-chrome => specs/_demo/google_search_1.spec.ts
-firefox => specs/_demo/google_search_2.spec.ts
-edge => specs/_demo/google_search_3.spec.ts
+## before => browser name
+## after => spec runner path
+## 
+## example mac : chrome => specs/_demo/google_search_1.spec.ts
+## example windows : chrome => specs\\_demo\\google_search_1.spec.ts
+## 

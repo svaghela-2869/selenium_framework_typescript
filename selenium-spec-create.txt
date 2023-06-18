@@ -1,0 +1,6 @@
+## before => folder path
+## after => spec name
+## 
+## example mac : specs/_demo/_demo_create => demo_create
+## example windows : specs\\_demo\\_demo_create => demo_create
+## 

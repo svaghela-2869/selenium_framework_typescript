@@ -4,6 +4,11 @@
       "name": "launch_url",
       "path": "lib/commom/uihelper",
       "description": "Launch Url"
+    },
+    {
+      "name": "verify_read_only_text",
+      "path": "lib/commom/uihelper",
+      "description": "Verify Read Only Text"
     }
   ]
 }

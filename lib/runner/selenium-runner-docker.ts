@@ -15,6 +15,10 @@ function run_spec() {
   console.log("Below spec files / folders will be run serially in docker.\n");
 
   for (let i = 0; i < spec_array.length; i++) {
+    if (spec_array[i].startsWith("##") || !spec_array[i]) {
+      continue;
+    }
+
     console.log(spec_array[i]);
 
     if (!supportedBrowsers.includes(spec_array[i].split(" => ")[0])) {
@@ -44,6 +48,10 @@ function run_spec() {
   // console.log(spec_array_with_result_folder);
 
   console.log("\nTotal spec files / folders found : " + spec_array_with_result_folder.length);
+  if (spec_array_with_result_folder.length == 0) {
+    console.log("\nPlease check selenium-runner.txt...");
+    return;
+  }
 
   if (unsupported_browser) {
     console.log("\nWarning : Please select docker serial runs supported browsers : " + supportedBrowsers.toString() + ", for current run defaulting to chrome...");
