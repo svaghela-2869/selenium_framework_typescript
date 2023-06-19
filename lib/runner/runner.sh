@@ -1,6 +1,6 @@
-npx sortjson && sleep 1 && clear
+npx sortjson && echo -e "" && sleep 1 && clear
 
-npx prettier --write . && sleep 1 && clear
+npx prettier --write . && echo -e "" && sleep 1 && clear
 
 run_type=("${1}")
 
