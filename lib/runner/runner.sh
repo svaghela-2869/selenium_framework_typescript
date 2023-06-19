@@ -1,3 +1,7 @@
+npx sortjson && sleep 1 && clear
+
+npx prettier --write . && sleep 1 && clear
+
 run_type=("${1}")
 
 options_available="refer below available options for 'npm test' : \n\n1. npm test create \n-> to generate required spec files ( mention spec details in selenium-spec-create.txt ) \n\n2. npm test serial \n-> to run the cases serially ( specs will run locally ) \n\n3. npm test parallel \n-> to run the cases parallely ( specs will run locally ) \n\n4. npm test docker \n-> to run the case in docker ( you will also get video of running spec )"
