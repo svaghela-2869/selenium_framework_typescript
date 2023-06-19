@@ -1,5 +1,21 @@
-launch_url,"https://admin.staging.soundit.com/",
-set_text_with_xpath,"//input[@name='email']",baldev@webcluesinfotech.com,
-set_text_with_xpath,//input[@name='password'],soundit123,
-click_with_xpath,//button[@type='submit'],
-sleep,5,
+launch_url,https://admin.staging.soundit.com/
+set_text_with_xpath,//input[@name='email'],baldev@webcluesinfotech.com
+set_text_with_xpath,//input[@name='password'],soundit123
+click_with_xpath,//button[@type='submit']
+wait_for_element_to_be_present_on_ui,//div[.='Dashboard'],10
+verify_read_only_text,Dashboard
+verify_read_only_text,Sub Admins
+verify_read_only_text,Users
+verify_read_only_text,Interests
+verify_read_only_text,Audios
+verify_read_only_text,Languages
+verify_read_only_text,Settings
+verify_read_only_text,Invitation Code
+verify_read_only_text,Discovery
+verify_read_only_text,Reports
+verify_read_only_text,Moderation Settings
+verify_read_only_text,Banners
+verify_read_only_text,Monetizations
+click_with_xpath,//button[@aria-controls="profile-menu"]
+click_with_xpath,//button[.="Logout"]
+sleep,3
