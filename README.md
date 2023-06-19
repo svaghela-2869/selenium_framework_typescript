@@ -2,13 +2,13 @@
 
 ### Setup
 
-1. Install required dependencies.
+1. Required dependencies installation.
 
 ```
 npm install
 ```
 
-2. Spec running options.
+2. Run options.
 
 ```
 npm test help
