@@ -8,7 +8,7 @@
 npm install
 ```
 
-2.
+2. Spec running options.
 
 ```
 npm test help
