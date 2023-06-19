@@ -18,4 +18,4 @@ verify_read_only_text,Banners
 verify_read_only_text,Monetizations
 click_with_xpath,//button[@aria-controls="profile-menu"]
 click_with_xpath,//button[.="Logout"]
-sleep,3
+sleep,3,true

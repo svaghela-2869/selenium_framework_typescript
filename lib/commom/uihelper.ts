@@ -124,11 +124,15 @@ export async function click_with_xpath(xpath: string) {
   await reporter.exit_log("click_with_xpath");
 }
 
-export async function sleep(seconds: string) {
+export async function sleep(seconds: string, screen_shot: string = "false") {
   await reporter.entry_log("sleep");
 
   await utils_common.sleep(Number(seconds));
-  await reporter.debug(seconds + " second sleep done, time to wake up.");
+  if (screen_shot == "true") {
+    await reporter.pass(seconds + " second sleep done, time to wake up.", true);
+  } else {
+    await reporter.debug(seconds + " second sleep done, time to wake up.");
+  }
 
   await reporter.exit_log("sleep");
 }
