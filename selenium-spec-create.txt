@@ -1,6 +1,6 @@
-## before => folder path
+## before => folder path "relative path from project folder"
 ## after => spec name
 ## 
 ## example mac : specs/_demo/_demo_create => demo_create
-## example windows : specs\\_demo\\_demo_create => demo_create
+## example windows : specs\_demo\_demo_create => demo_create
 ## 

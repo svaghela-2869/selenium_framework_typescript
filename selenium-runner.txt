@@ -1,6 +1,6 @@
 ## before => browser name
-## after => spec runner path
+## after => spec runner path "relative path from project folder"
 ## 
 ## example mac : chrome => specs/_demo/google_search_1.spec.ts
-## example windows : chrome => specs\\_demo\\google_search_1.spec.ts
+## example windows : chrome => specs\_demo\google_search_1.spec.ts
 ## 

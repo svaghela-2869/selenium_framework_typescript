@@ -28,7 +28,7 @@ function run_spec() {
 
     let split = "/";
     if (os.type().toLocaleLowerCase().startsWith("win")) {
-      split = "\\\\";
+      split = "\\";
     }
 
     let name_index = spec_array[i].split(" => ")[1].split(split).length;
