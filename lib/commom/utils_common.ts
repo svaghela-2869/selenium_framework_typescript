@@ -48,7 +48,7 @@ export async function init(arg: any, dirPath: string, filePath: string) {
     });
   }
 
-  console.log(JSON.stringify(globalConfig.spec, null, 2) + "\n");
+  console.log(JSON.stringify(globalConfig.spec) + "\n");
 
   reporter.set_logger();
 
@@ -129,34 +129,39 @@ export async function executeStep(step: any) {
   await reporter.info("Step [ " + step.name + " ]", false);
   await reporter.info("Data [ " + step.data + " ]", false);
 
-  let dataMap = await convertStepArrayToMap(step.data);
-  let apiToCall = step.name;
+  let dataMap = await convert_step_array_to_map(step.data);
+
+  // console.log(dataMap);
+
+  let api_to_call = step.name;
   let libPath = globalConfig.spec.abspath + "/" + step.path;
   let apis: any = await import(libPath);
 
-  if (apis[apiToCall]) {
+  if (apis[api_to_call]) {
     if (step.path.includes("uihelper")) {
       let argsArray: any[] = [];
       dataMap.forEach((value) => {
         argsArray.push(value);
       });
-      await apis[apiToCall].apply(apis, argsArray);
+      await apis[api_to_call].apply(apis, argsArray);
     } else {
-      await apis[apiToCall].call(apis, dataMap);
+      await apis[api_to_call].call(apis, dataMap);
     }
   } else {
     await reporter.fail_and_continue("Method '" + step.name + "' does not exists, please check and update csv !!!");
   }
 }
 
-async function convertStepArrayToMap(data: string[]) {
+async function convert_step_array_to_map(data: string[]) {
   let map = new Map();
+
+  // console.log(data);
 
   for (let i = 0; i < data.length; i++) {
     let d = data[i].trim();
-    if (d.includes("=")) {
-      let key = d.substring(0, d.indexOf("=")).trim();
-      let value = d.substring(d.indexOf("=") + 1).trim();
+    if (d.includes("==")) {
+      let key = d.substring(0, d.indexOf("==")).trim();
+      let value = d.substring(d.indexOf("==") + 1).trim();
       if (value != "") {
         map.set(key, value);
       }

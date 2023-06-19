@@ -137,3 +137,11 @@ export async function take_screenshot(imagePath: string) {
     logger.error(error);
   }
 }
+
+export async function entry_log(function_name: string) {
+  logger.trace("-->" + function_name);
+}
+
+export async function exit_log(function_name: string) {
+  logger.trace("<--" + function_name);
+}

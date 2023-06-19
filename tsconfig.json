@@ -1,19 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["ESNext"],
+    "allowJs": false,
+    "baseUrl": ".",
+    "lib": [
+      "ESNext"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
-    "baseUrl": ".",
-    "typeRoots": ["./node_modules/@types"],
-    "types": ["mocha", "node", "chai"],
-    "allowJs": false,
-    "strict": true,
     "noImplicitAny": false,
+    "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true
+    "strict": true,
+    "target": "ESNext",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "types": [
+      "mocha",
+      "node",
+      "chai"
+    ]
   },
-  "include": ["**/*.ts"],
-  "exclude": ["**/node_modules/**"]
+  "exclude": [
+    "**/node_modules/**"
+  ],
+  "include": [
+    "**/*.ts"
+  ]
 }

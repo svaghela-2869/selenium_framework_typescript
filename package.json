@@ -7,8 +7,8 @@
   "author": "",
   "main": "index.js",
   "scripts": {
-    "test": "bash 'lib/runner/runner.sh'",
-    "docker-clean": "docker rm $(docker ps --all -q) -f"
+    "docker-clean": "docker rm $(docker ps --all -q) -f",
+    "test": "bash 'lib/runner/runner.sh'"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
@@ -19,13 +19,13 @@
     "chai": "^4.3.7",
     "dateformat": "4.6.3",
     "fs": "^0.0.1-security",
+    "json-sort-cli": "^3.1.3",
     "lodash": "^4.17.21",
     "log4js": "^6.9.1",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",
     "papaparse": "^5.4.1",
     "path": "^0.12.7",
-    "random-test-values": "^2.0.0",
     "selenium": "^2.20.0",
     "selenium-webdriver": "^4.9.2",
     "ts-node": "^10.9.1",

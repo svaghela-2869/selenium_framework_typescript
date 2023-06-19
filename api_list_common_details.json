@@ -1,14 +1,29 @@
 {
   "apis": [
     {
+      "description": "Launch Url.",
       "name": "launch_url",
-      "path": "lib/commom/uihelper",
-      "description": "Launch Url"
+      "path": "lib/commom/uihelper"
     },
     {
+      "description": "Verify Read Only Text on Page.",
       "name": "verify_read_only_text",
-      "path": "lib/commom/uihelper",
-      "description": "Verify Read Only Text"
+      "path": "lib/commom/uihelper"
+    },
+    {
+      "description": "Set Value on XPath.",
+      "name": "set_text_with_xpath",
+      "path": "lib/commom/uihelper"
+    },
+    {
+      "description": "Click on XPath.",
+      "name": "click_with_xpath",
+      "path": "lib/commom/uihelper"
+    },
+    {
+      "description": "Sleep.",
+      "name": "sleep",
+      "path": "lib/commom/uihelper"
     }
   ]
 }

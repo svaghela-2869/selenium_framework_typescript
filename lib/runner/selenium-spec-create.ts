@@ -15,7 +15,7 @@ function run_spec_create() {
 
     let split = "/";
     if (os.type().toLocaleLowerCase().startsWith("win")) {
-      split = "\\\\";
+      split = "\\";
     }
 
     let dynamic_import_count = spec_array[i].split(" => ")[0].split(split).length;
@@ -23,8 +23,8 @@ function run_spec_create() {
     console.log("\nGenerating Files For Spec : " + spec_array[i] + "\n");
 
     let spec_folder = path.resolve(__dirname, "../../" + spec_array[i].split(" => ")[0]);
-    let spec_runner_file = path.resolve(__dirname, spec_folder + "/" + spec_array[i].split(" => ")[1] + ".ts");
-    let spec_data_file = path.resolve(__dirname, spec_folder + "/" + spec_array[i].split(" => ")[1] + ".csv");
+    let spec_runner_file = path.resolve(__dirname, spec_folder + "/" + spec_array[i].split(" => ")[1] + ".spec.ts");
+    let spec_data_file = path.resolve(__dirname, spec_folder + "/" + spec_array[i].split(" => ")[1] + ".spec.csv");
 
     if (!fs.existsSync(spec_folder)) {
       fs.mkdirSync(spec_folder, { recursive: true });

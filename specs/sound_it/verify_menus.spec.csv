@@ -1,0 +1,5 @@
+launch_url,"https://admin.staging.soundit.com/",
+set_text_with_xpath,"//input[@name='email']",baldev@webcluesinfotech.com,
+set_text_with_xpath,//input[@name='password'],soundit123,
+click_with_xpath,//button[@type='submit'],
+sleep,5,
