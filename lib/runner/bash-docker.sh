@@ -16,6 +16,12 @@ docker_cmd=`cat lib/runner/run.txt`
 
 IFS=$'\n' lines=( ${docker_cmd} )
 
+if [ "${#lines[@]}" == "0" ]; then
+  clear
+  echo -e "\nNo spec found, please check selenium-runner.txt !!!"
+  exit
+fi
+
 echo -e "<< entry >>"
 docker network create grid
 docker run -d -p 4442-4444:4442-4444 --net grid --name "${sel_type}"-hub "${sel_type}"/hub:latest
