@@ -21,6 +21,7 @@ function run_spec() {
         let supportedBrowsers = ["chrome", "firefox", "edge", "safari"];
         if (!supportedBrowsers.includes(spec_array[i].split(" => ")[0])) {
             console.log("\nPlease select serial runs supported browsers : " + supportedBrowsers.toString());
+            fs.writeFileSync(path.resolve(__dirname, String("./run.txt")), "");
             return;
         }
 

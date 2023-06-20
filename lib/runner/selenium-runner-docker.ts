@@ -9,9 +9,6 @@ function run_spec() {
     const spec_array_with_result_folder: string[] = [];
     const spec_array_with_final_cmd: string[] = [];
 
-    let supportedBrowsers = ["chrome", "firefox", "edge"];
-    let unsupported_browser = false;
-
     console.log("Below spec files / folders will be run serially in docker.\n");
 
     for (let i = 0; i < spec_array.length; i++) {
@@ -21,9 +18,11 @@ function run_spec() {
 
         console.log(spec_array[i]);
 
+        let supportedBrowsers = ["chrome", "firefox", "edge"];
         if (!supportedBrowsers.includes(spec_array[i].split(" => ")[0])) {
-            spec_array[i] = spec_array[i].replace(spec_array[i].split(" => ")[0], "chrome");
-            unsupported_browser = true;
+            console.log("\nPlease select docker runs supported browsers : " + supportedBrowsers.toString());
+            fs.writeFileSync(path.resolve(__dirname, String("./run.txt")), "");
+            return;
         }
 
         let split = "/";
@@ -48,10 +47,6 @@ function run_spec() {
     // console.log(spec_array_with_result_folder);
 
     console.log("\nTotal spec files / folders found : " + spec_array_with_result_folder.length);
-
-    if (unsupported_browser) {
-        console.log("\nWarning : Please select docker serial runs supported browsers : " + supportedBrowsers.toString() + ", for current run defaulting to chrome...");
-    }
 
     for (let i = 0; i < spec_array_with_result_folder.length; i++) {
         if (spec_array_with_result_folder[i].split(" => ").length == 4) {

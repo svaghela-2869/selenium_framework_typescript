@@ -22,3 +22,5 @@ elif [[ "${run_type}" == "help" ]]; then
 else
     echo -e $options_available
 fi
+
+exit

@@ -8,19 +8,18 @@ echo $sel_type
 
 tail -n +2 "lib/runner/run.txt" > "lib/runner/run.txt.tmp" && mv "lib/runner/run.txt.tmp" "lib/runner/run.txt"
 
-echo -e "\n======================== Selenium Grid ========================"
-echo -e "\nhttp://localhost:4444"
-echo -e "\n===============================================================\n"
-
 docker_cmd=`cat lib/runner/run.txt`
 
 IFS=$'\n' lines=( ${docker_cmd} )
 
 if [ "${#lines[@]}" == "0" ]; then
-  clear
-  echo -e "\nNo spec found, please check selenium-runner.txt !!!"
+  echo -e "No valid spec found, please check selenium-runner.txt !!!"
   exit
 fi
+
+echo -e "\n======================== Selenium Grid ========================"
+echo -e "\nhttp://localhost:4444"
+echo -e "\n===============================================================\n"
 
 echo -e "<< entry >>"
 docker network create grid
