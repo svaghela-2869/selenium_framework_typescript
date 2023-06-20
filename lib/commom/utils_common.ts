@@ -125,7 +125,7 @@ async function get_api_list() {
     return apis;
 }
 
-export async function executeStep(step: any) {
+export async function execute_step(step: any) {
     await reporter.info("Step [ " + step.name + " ]", false);
     await reporter.info("Data [ " + step.data + " ]", false);
 
