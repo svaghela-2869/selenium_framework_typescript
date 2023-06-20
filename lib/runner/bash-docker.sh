@@ -4,8 +4,6 @@ IFS=$'\n' read -a lines_tmp <<< "$docker_cmd_tmp"
 
 sel_type="${lines_tmp[0]}"
 
-echo $sel_type
-
 tail -n +2 "lib/runner/run.txt" > "lib/runner/run.txt.tmp" && mv "lib/runner/run.txt.tmp" "lib/runner/run.txt"
 
 docker_cmd=`cat lib/runner/run.txt`
