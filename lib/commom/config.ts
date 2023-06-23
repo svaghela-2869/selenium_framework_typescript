@@ -2,6 +2,7 @@ import { WebDriver, Builder } from "selenium-webdriver";
 
 export let driver: WebDriver;
 export let spec: any = {};
+export let env_vars: any = {};
 
 export async function set_driver(browser: string, docker: string) {
     if (browser.toLowerCase() == "chrome") {
