@@ -42,7 +42,7 @@ export async function press_enter(xpath: string) {
     await reporter.exit_log("press_enter");
 }
 
-export async function wait_for_element_to_be_present_on_ui(xpath: string, wait_time_in_seconds: number) {
+export async function wait_for_element_to_be_present_on_ui(xpath: string, wait_time_in_seconds: number, fail: boolean) {
     await reporter.entry_log("wait_for_element_to_be_present_on_ui");
 
     await reporter.debug(xpath);
@@ -57,6 +57,12 @@ export async function wait_for_element_to_be_present_on_ui(xpath: string, wait_t
         } catch (error) {
             await reporter.debug("Got error for findElements, retrying..." + error);
         }
+    }
+
+    if (fail) {
+        await reporter.fail_and_continue("Element with xpath [ " + xpath + " ] not found in " + wait_time_in_seconds + " seconds", true);
+    } else {
+        await reporter.warn("Element with xpath [ " + xpath + " ] not found in " + wait_time_in_seconds + " seconds", true);
     }
 
     await reporter.exit_log("wait_for_element_to_be_present_on_ui");
