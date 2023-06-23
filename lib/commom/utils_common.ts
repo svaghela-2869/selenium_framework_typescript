@@ -165,7 +165,7 @@ export async function execute_step(step: any) {
             await apis[api_to_call].call(apis, dataMap);
         }
     } else {
-        await reporter.fail_and_continue("Method '" + step.name + "' does not exists, please check and update csv !!!");
+        await reporter.fail_and_continue("method '" + step.name + "' does not exists, please check and update csv !!!");
     }
 }
 
