@@ -101,8 +101,7 @@ export async function get_all_api_calls(data_file: string) {
                 let firstColumn = _.first(step);
 
                 if (firstColumn.startsWith("##")) {
-                    step = _.drop(step);
-                    firstColumn = _.last(step).trim();
+                    continue;
                 } else if (firstColumn.toString().equalsIgnoreCase("skip")) {
                     newStep["zeroColumn"] = firstColumn;
                     step = _.drop(step);
