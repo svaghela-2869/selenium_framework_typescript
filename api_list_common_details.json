@@ -11,12 +11,12 @@
             "path": "lib/commom/uihelper"
         },
         {
-            "description": "Set value on XPath.",
+            "description": "Set value with XPath.",
             "name": "set_text_with_xpath",
             "path": "lib/commom/uihelper"
         },
         {
-            "description": "Click on XPath.",
+            "description": "Click with XPath.",
             "name": "click_with_xpath",
             "path": "lib/commom/uihelper"
         },
