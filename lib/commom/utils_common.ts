@@ -179,7 +179,7 @@ function convert_step_array_to_map(data: string[]) {
             let key = d.split("==")[0];
             let value = d.replace(key + "==", "").trim();
             if (value != "") {
-                map.set(key, value);
+                map.set(key.trim(), value);
             }
         } else {
             map.set("arg" + i, d);
