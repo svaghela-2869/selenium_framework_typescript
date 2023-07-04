@@ -176,8 +176,8 @@ function convert_step_array_to_map(data: string[]) {
     for (let i = 0; i < data.length; i++) {
         let d = data[i].trim();
         if (d.includes("==")) {
-            let key = d.substring(0, d.indexOf("==")).trim();
-            let value = d.substring(d.indexOf("==") + 1).trim();
+            let key = d.split("==")[0];
+            let value = d.replace(key + "==", "").trim();
             if (value != "") {
                 map.set(key, value);
             }
@@ -185,6 +185,8 @@ function convert_step_array_to_map(data: string[]) {
             map.set("arg" + i, d);
         }
     }
+
+    // console.log(map);
 
     return map;
 }
